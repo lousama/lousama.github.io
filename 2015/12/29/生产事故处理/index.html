@@ -20,7 +20,7 @@
 经过上周六刚熬夜上线新feature，次日本来要美美的睡一觉，不到9点就被客服在微信群炸醒，用户又领不到优惠券了!（什么啊你你你说清楚，为什么是又呢）。
 这是总部app调我们web的http接口，用户在app中抽取优惠券，然后调用我们接口后给账户充值优惠券并返回结果。用户在app点查看会跳转到我们提供的一个显示页面。
 那边开发说接口">
-<meta property="og:updated_time" content="2015-12-30T11:44:28.000Z">
+<meta property="og:updated_time" content="2015-12-30T13:02:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次生产事故">
 <meta name="twitter:description" content="一个程序猿遇到个问题，他决定用多线程解决，现在他有题了个问两。
@@ -274,7 +274,7 @@
 </ul>
 </blockquote>
 <p>grep了另一台服务器的日志，也有这句纪录，按照文档，添加参数，不过再也没出现过了，测试环境也开着，等下次出现，好好分析下创建和访问的地方。<br>另建议可以把MaxDirectMemory调大一些，然后监控一下使用情况，可以及时报警。</p>
-<h2 id="u5584_u540E"><a href="#u5584_u540E" class="headerlink" title="善后"></a>善后</h2><p>线上bug暂时处理了，接下来就是善后问题<br>那边日志记录只有返回失败处理结果的，由于上下文错乱，有些实际失败的记录却返回了成功，这些就要我们这边来筛选出来。<br>好在我这边日志记录的比较详细，每一步处理都有迹可循，找到错乱前的那句日志，直接<a href="/">grep</a>到文件里面筛选处理，正好温故了一下shell</p>
+<h2 id="u5584_u540E"><a href="#u5584_u540E" class="headerlink" title="善后"></a>善后</h2><p>线上bug暂时处理了，接下来就是善后问题<br>那边日志记录只有返回失败处理结果的，由于上下文错乱，有些实际失败的记录却返回了成功，这些就要我们这边来筛选出来。<br>好在我这边日志记录的比较详细，每一步处理都有迹可循，找到错乱前的那句日志，直接<a href="/2015/12/30/grep-commond-not-found/">grep</a>到文件里面筛选处理，正好温故了一下shell</p>
 <h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>事情过去后，也要总结一下，许多地方如果之前沟通确定好就不会出问题了。</p>
 <ol>
 <li>接口，尤其是对外接口一定要压测</li>
