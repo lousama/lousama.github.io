@@ -24,7 +24,7 @@
 1$ ssh-keygen -t rsa
 然后就会看到.ssh目录下生成的私钥和公钥
 123$ ls ~/.ssh">
-<meta property="og:updated_time" content="2015-12-31T03:12:00.000Z">
+<meta property="og:updated_time" content="2016-01-04T16:07:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac ssh without password">
 <meta name="twitter:description" content="最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。后来捣鼓了半天，终于搞定了免密码登陆服务器。其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。
@@ -267,7 +267,7 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
 <p>然后就会看到.ssh目录下生成的私钥和公钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.ssh  </span><br><span class="line">    id_rsa  &lt;!-- 私钥 --&gt;  </span><br><span class="line">    id_rsa.pub    //公钥</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.ssh  </span><br><span class="line">    id_rsa  //私钥 </span><br><span class="line">    id_rsa.pub    //公钥</span><br></pre></td></tr></table></figure>
 <ul>
 <li><h3 id="u914D_u7F6Essh_config"><a href="#u914D_u7F6Essh_config" class="headerlink" title="配置ssh config"></a>配置ssh config</h3><a id="more"></a>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.ssh/config  </span><br><span class="line">    Host <span class="built_in">test</span> //host简称,完成之后可以直接通过ssh+简称完成登陆  </span><br><span class="line">    HostName <span class="number">192.168</span>.xx.xx   //服务器地址  </span><br><span class="line">    Port <span class="number">22</span>  //服务器端口  </span><br><span class="line">    User root   //登陆名称  </span><br><span class="line">    PreferredAuthentications publickey  //认证方式 此处值为公钥认证  </span><br><span class="line">    IdentityFile ~/.ssh/id_rsa   //私钥文件</span><br></pre></td></tr></table></figure>
@@ -364,7 +364,7 @@
       </script>
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2015 lousama
+    		&copy; <!--2016-->2014 lousama
           <span id="busuanzi_container_site_pv">
               Total:<span id="busuanzi_value_site_pv"></span>
           </span>
