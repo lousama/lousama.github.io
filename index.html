@@ -441,44 +441,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>console输出：</p>
-<pre><code>SEVERE: Servlet.service() for servlet [jsp] in context with path [/Test] threw exception [java.lang.IllegalStateException: getOutputStream() has already been called for this response] with root cause  
-java.lang.IllegalStateException: getOutputStream() has already been called for this response  
-at org.apache.catalina.connector.Response.getWriter(Response.java:639)  
-at org.apache.catalina.connector.ResponseFacade.getWriter(ResponseFacade.java:214)  
-at org.apache.jasper.runtime.JspWriterImpl.initOut(JspWriterImpl.java:125)  
-at org.apache.jasper.runtime.JspWriterImpl.flushBuffer(JspWriterImpl.java:118)  
-at org.apache.jasper.runtime.PageContextImpl.release(PageContextImpl.java:190)  
-at org.apache.jasper.runtime.JspFactoryImpl.internalReleasePageContext(JspFactoryImpl.java:126)  
-at org.apache.jasper.runtime.JspFactoryImpl.releasePageContext(JspFactoryImpl.java:80)  
-at org.apache.jsp.index_jsp._jspService(index_jsp.java:116)  
-at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)  
-at javax.servlet.http.HttpServlet.service(HttpServlet.java:722)  
-at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)  
-at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)  
-at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)  
-at javax.servlet.http.HttpServlet.service(HttpServlet.java:722)  
-at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)  
-at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)  
-at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)  
-at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)  
-at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)  
-at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:168)  
-at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)  
-at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)  
-at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)  
-at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1002)  
-at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:585)  
-at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310)  
-at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)  
-at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)  
-at java.lang.Thread.run(Thread.java:722)  
-</code></pre><hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">SEVERE: Servlet.service() <span class="keyword">for</span> servlet [jsp] in context with path [/Test] threw exception [java.lang.IllegalStateException: getOutputStream() has already been called <span class="keyword">for</span> <span class="keyword">this</span> response] with root cause  </span><br><span class="line">java.lang.IllegalStateException: getOutputStream() has already been called <span class="keyword">for</span> <span class="keyword">this</span> response  </span><br><span class="line">at org.apache.catalina.connector.Response.getWriter(Response.java:<span class="number">639</span>)  </span><br><span class="line">at org.apache.catalina.connector.ResponseFacade.getWriter(ResponseFacade.java:<span class="number">214</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspWriterImpl.initOut(JspWriterImpl.java:<span class="number">125</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspWriterImpl.flushBuffer(JspWriterImpl.java:<span class="number">118</span>)  </span><br><span class="line">at org.apache.jasper.runtime.PageContextImpl.release(PageContextImpl.java:<span class="number">190</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspFactoryImpl.internalReleasePageContext(JspFactoryImpl.java:<span class="number">126</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspFactoryImpl.releasePageContext(JspFactoryImpl.java:<span class="number">80</span>)  </span><br><span class="line">at org.apache.jsp.index_jsp._jspService(index_jsp.java:<span class="number">116</span>)  </span><br><span class="line">at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:<span class="number">70</span>)  </span><br><span class="line">at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">722</span>)  </span><br><span class="line">at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:<span class="number">432</span>)  </span><br><span class="line">at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:<span class="number">390</span>)  </span><br><span class="line">at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:<span class="number">334</span>)  </span><br><span class="line">at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">722</span>)  </span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">305</span>)  </span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">210</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:<span class="number">222</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:<span class="number">123</span>)  </span><br><span class="line">at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:<span class="number">472</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:<span class="number">168</span>)  </span><br><span class="line">at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:<span class="number">99</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:<span class="number">118</span>)  </span><br><span class="line">at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:<span class="number">407</span>)  </span><br><span class="line">at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:<span class="number">1002</span>)  </span><br><span class="line">at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:<span class="number">585</span>)  </span><br><span class="line">at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:<span class="number">310</span>)  </span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1110</span>)  </span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:<span class="number">603</span>)  </span><br><span class="line">at java.lang.Thread.run(Thread.java:<span class="number">722</span>)</span><br></pre></td></tr></table></figure>
+<hr>
 <p><code>getOutputStream() has already been called for this response</code>这个问题今天又遇到了。<br>起因是写一个http服务，在index.jsp里面直接调用了server(request,response)。<br>具体的原因：jsp编译成servlet之后在函数<br><code>_jspService(HttpServletRequest request, HttpServletResponse response)</code>的最后有一段如下代码：</p>
-<pre><code>finally {    
-      if (_jspxFactory != null)     
-          _jspxFactory.releasePageContext(_jspx_page_context);    
-}
-</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">finally</span> &#123;    </span><br><span class="line">      <span class="keyword">if</span> (_jspxFactory != <span class="literal">null</span>)     </span><br><span class="line">          _jspxFactory.releasePageContext(_jspx_page_context);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
