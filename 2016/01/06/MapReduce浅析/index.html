@@ -4,18 +4,22 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>MapReduce浅析 | Lousama</title>
+  <title>Hadoop学习笔记之MapReduce浅析 | Lousama</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="123public static ()&amp;#123;    System.out.println(&quot;I love you&quot;);&amp;#125;">
+  <meta name="description" content="最近电商行情不是太乐观，整个市场流量增长缓慢，正好项目闲了下来，老板说下一步重点要搞大数据分析。
+ 大姨吗现在接近一亿注册用户，日PV和UV已经达到很高的一个数量级，美月这边实际消费转化率目前也就在1%左右，整个电商市场的寒冬，老板表示急于需要分析现有的用户数据来进行针对性的推送推荐备货以及下一步战略目标。这样就开始我的大数据之旅。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MapReduce浅析">
+<meta property="og:title" content="Hadoop学习笔记之MapReduce浅析">
 <meta property="og:url" content="http://lousama.com/2016/01/06/MapReduce浅析/index.html">
 <meta property="og:site_name" content="Lousama">
-<meta property="og:description" content="123public static ()&amp;#123;    System.out.println(&quot;I love you&quot;);&amp;#125;">
-<meta property="og:updated_time" content="2016-01-06T09:03:31.000Z">
+<meta property="og:description" content="最近电商行情不是太乐观，整个市场流量增长缓慢，正好项目闲了下来，老板说下一步重点要搞大数据分析。
+ 大姨吗现在接近一亿注册用户，日PV和UV已经达到很高的一个数量级，美月这边实际消费转化率目前也就在1%左右，整个电商市场的寒冬，老板表示急于需要分析现有的用户数据来进行针对性的推送推荐备货以及下一步战略目标。这样就开始我的大数据之旅。">
+<meta property="og:image" content="http://lousama.com/img/blog/201601_puke.png">
+<meta property="og:updated_time" content="2016-01-06T09:44:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MapReduce浅析">
-<meta name="twitter:description" content="123public static ()&amp;#123;    System.out.println(&quot;I love you&quot;);&amp;#125;">
+<meta name="twitter:title" content="Hadoop学习笔记之MapReduce浅析">
+<meta name="twitter:description" content="最近电商行情不是太乐观，整个市场流量增长缓慢，正好项目闲了下来，老板说下一步重点要搞大数据分析。
+ 大姨吗现在接近一亿注册用户，日PV和UV已经达到很高的一个数量级，美月这边实际消费转化率目前也就在1%左右，整个电商市场的寒冬，老板表示急于需要分析现有的用户数据来进行针对性的推送推荐备货以及下一步战略目标。这样就开始我的大数据之旅。">
   
   
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
@@ -120,7 +124,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/grep/" style="font-size: 10px;">grep</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/pgg/" style="font-size: 10px;">pgg</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/事故/" style="font-size: 10px;">事故</a> <a href="/tags/生产/" style="font-size: 10px;">生产</a>
+						<a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MapReduce/" style="font-size: 10px;">MapReduce</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/grep/" style="font-size: 10px;">grep</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/pgg/" style="font-size: 10px;">pgg</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/事故/" style="font-size: 10px;">事故</a> <a href="/tags/生产/" style="font-size: 10px;">生产</a>
 					</div>
 				</section>
 				
@@ -219,7 +223,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      MapReduce浅析
+      Hadoop学习笔记之MapReduce浅析
     </h1>
   
 
@@ -227,7 +231,15 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MapReduce/">MapReduce</a></li></ul>
+	</div>
+
         
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Hadoop/">Hadoop</a>
+	</div>
+
 
         <div class="clearfix"></div>
       </div>
@@ -235,7 +247,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">static</span> <span class="params">()</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"I love you"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><strong> 最近电商行情不是太乐观，整个市场流量增长缓慢，正好项目闲了下来，老板说下一步重点要搞大数据分析。</strong></p>
+<p><strong> 大姨吗现在接近一亿注册用户，日PV和UV已经达到很高的一个数量级，美月这边实际消费转化率目前也就在1%左右，整个电商市场的寒冬，老板表示急于需要分析现有的用户数据来进行针对性的推送推荐备货以及下一步战略目标。这样就开始我的大数据之旅。</strong></p>
+<hr>
+<a id="more"></a>
+<p>在介绍什么是MapReduce之前呢，首先我们先来看这样一副扑克牌：<br><img src="/img/blog/201601_puke.png" alt="Alt text" title="Optional title"></p>
 
       
     </div>
@@ -278,7 +294,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="MapReduce浅析" data-title="MapReduce浅析" data-url="http://lousama.com/2016/01/06/MapReduce浅析/"></div>
+	<div class="ds-thread" data-thread-key="MapReduce浅析" data-title="Hadoop学习笔记之MapReduce浅析" data-url="http://lousama.com/2016/01/06/MapReduce浅析/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
