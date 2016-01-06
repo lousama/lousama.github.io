@@ -14,8 +14,10 @@
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="最近电商行情不是太乐观，整个市场流量增长缓慢，正好项目闲了下来，老板说下一步重点要搞大数据分析。
  大姨吗现在接近一亿注册用户，日PV和UV已经达到很高的一个数量级，美月这边实际消费转化率目前也就在1%左右，整个电商市场的寒冬，老板表示急于需要分析现有的用户数据来进行针对性的推送推荐备货以及下一步战略目标。这样就开始我的大数据之旅。">
-<meta property="og:image" content="http://lousama.com/img/blog/201601_puke.png">
-<meta property="og:updated_time" content="2016-01-06T11:37:12.000Z">
+<meta property="og:image" content="http://7xpmfi.com1.z0.glb.clouddn.com/%40%2Fimg201601_puke.png?imageView2/2/w/1000/h/400/q/100|watermark/2/text/TG91c2FtYQ==/font/5b6u6L2v6ZuF6buR/fontsize/300/fill/I0U1QTg4RA==/dissolve/90/gravity/SouthEast/dx/10/dy/10">
+<meta property="og:image" content="http://7xpmfi.com1.z0.glb.clouddn.com/%40%2Fimgabstract_model.png?imageView2/2/w/400/h/300/q/100|watermark/2/text/TG91c2FtYQ==/font/5b6u6L2v6ZuF6buR/fontsize/300/fill/I0U1QTg4RA==/dissolve/90/gravity/SouthEast/dx/10/dy/10">
+<meta property="og:image" content="http://7xpmfi.com1.z0.glb.clouddn.com/%40%2Fimgword_count.png?imageView2/2/w/500/h/300/q/100|watermark/2/text/TG91c2FtYQ==/font/5b6u6L2v6ZuF6buR/fontsize/300/fill/I0U1QTg4RA==/dissolve/90/gravity/SouthEast/dx/10/dy/10">
+<meta property="og:updated_time" content="2016-01-06T13:29:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop学习笔记之MapReduce浅析">
 <meta name="twitter:description" content="最近电商行情不是太乐观，整个市场流量增长缓慢，正好项目闲了下来，老板说下一步重点要搞大数据分析。
@@ -251,7 +253,7 @@
 <p><strong> 大姨吗现在接近一亿注册用户，日PV和UV已经达到很高的一个数量级，美月这边实际消费转化率目前也就在1%左右，整个电商市场的寒冬，老板表示急于需要分析现有的用户数据来进行针对性的推送推荐备货以及下一步战略目标。这样就开始我的大数据之旅。</strong></p>
 <hr>
 <a id="more"></a>
-<h2 id="1-_MapReduce_u662F_u4EC0_u4E48"><a href="#1-_MapReduce_u662F_u4EC0_u4E48" class="headerlink" title="1. MapReduce是什么"></a><strong> 1. MapReduce是什么 </strong></h2><h3 id="1-1__u95EE_u9898"><a href="#1-1__u95EE_u9898" class="headerlink" title="1.1 问题"></a>1.1 问题</h3><p>在介绍什么是MapReduce之前呢，首先我们先来看这样一副扑克牌：<br><img src="/img/blog/201601_puke.png" alt="扑克牌中有多少张A？"></p>
+<h2 id="1-_MapReduce_u662F_u4EC0_u4E48"><a href="#1-_MapReduce_u662F_u4EC0_u4E48" class="headerlink" title="1. MapReduce是什么"></a><strong> 1. MapReduce是什么 </strong></h2><h3 id="1-1__u95EE_u9898"><a href="#1-1__u95EE_u9898" class="headerlink" title="1.1 问题"></a>1.1 问题</h3><p>在介绍什么是MapReduce之前呢，首先我们先来看这样一副扑克牌：<br><img src="http://7xpmfi.com1.z0.glb.clouddn.com/%40%2Fimg201601_puke.png?imageView2/2/w/1000/h/400/q/100|watermark/2/text/TG91c2FtYQ==/font/5b6u6L2v6ZuF6buR/fontsize/300/fill/I0U1QTg4RA==/dissolve/90/gravity/SouthEast/dx/10/dy/10" alt="扑克牌中有多少张A？"></p>
 <blockquote>
 <p>问题：请问上面扑克牌中又多少张A？</p>
 </blockquote>
@@ -300,6 +302,62 @@
 <li><p>出错检测和恢复：<br> 以低端商用服务器构成的大规模MapReduce计算集群中，节点硬件（主机、磁盘、内存等）出错和软件出错是常态，因此 MapReduce需要能检测并隔离出错节点，并调度分配新的节点接管出错节点的计算任务。同时，系统还将维护数据存储的可靠性，用多备份冗余存储机制提 高数据存储的可靠性，并能及时检测和恢复出错的数据。</p>
 </li>
 </ol>
+<h3 id="2-3__u4E3B_u8981_u7279_u5F81"><a href="#2-3__u4E3B_u8981_u7279_u5F81" class="headerlink" title="2.3 主要特征"></a>2.3 主要特征</h3><p>MapReduce设计上具有以下主要的技术特征：</p>
+<ol>
+<li><p>向“外”横向扩展，而非向“上”纵向扩展<br>即MapReduce集群的构建完全选用价格便宜、易于扩展的低端商用服务器，而非价格昂贵、不易扩展的高端服务器。<br>对于大规模数据处理，由于有大 量数据存储需要，显而易见，基于低端服务器的集群远比基于高端服务器的集群优越，这就是为什么MapReduce并行计算集群会基于低端服务器实现的原因。</p>
+</li>
+<li><p>失效被认为是常态<br>MapReduce集群中使用大量的低端服务器，因此，节点硬件失效和软件出错是常态，因而一个良好设计、具有高容错性的并行计算系统不能因为节点 失效而影响计算服务的质量，任何节点失效都不应当导致结果的不一致或不确定性；任何一个节点失效时，其他节点要能够无缝接管失效节点的计算任务；当失效节 点恢复后应能自动无缝加入集群，而不需要管理员人工进行系统配置。<br>MapReduce并行计算软件框架使用了多种有效的错误检测和恢复机制，如节点自动重 启技术，使集群和计算框架具有对付节点失效的健壮性，能有效处理失效节点的检测和恢复。</p>
+</li>
+<li><p>把处理向数据迁移<br>传统高性能计算系统通常有很多处理器节点与一些外存储器节点相连，如用存储区域网络（Storage Area，SAN Network）连接的磁盘阵列，因此，大规模数据处理时外存文件数据I/O访问会成为一个制约系统性能的瓶颈。<br>为了减少大规模数据并行计算系统中的数据 通信开销，代之以把数据传送到处理节点（数据向处理器或代码迁移），应当考虑将处理向数据靠拢和迁移。MapReduce采用了数据/代码互定位的技术方法，计算节点将首先尽量负责计算其本地存储的数据，以发挥数据本地化特点，仅当节点无法处理本地数据时，再采用就近原则寻找其他可用计算节点，并把数据传送到该可用计算节点。</p>
+</li>
+<li><p>顺序处理数据、避免随机访问数据<br>大规模数据处理的特点决定了大量的数据记录难以全部存放在内存，而通常只能放在外存中进行处理。由于磁盘的顺序访问要远比随机访问快得多，因此 MapReduce主要设计为面向顺序式大规模数据的磁盘访问处理。<br>为了实现面向大数据集批处理的高吞吐量的并行处理，MapReduce可以利用集群中 的大量数据存储节点同时访问数据，以此利用分布集群中大量节点上的磁盘集合提供高带宽的数据访问和传输。</p>
+</li>
+<li><p>为应用开发者隐藏系统层细节<br>软件工程实践指南中，专业程序员认为之所以写程序困难，是因为程序员需要记住太多的编程细节（从变量名到复杂算法的边界情况处理），这对大脑记忆是 一个巨大的认知负担，需要高度集中注意力；而并行程序编写有更多困难，如需要考虑多线程中诸如同步等复杂繁琐的细节。由于并发执行中的不可预测性，程序的 调试查错也十分困难；而且，大规模数据处理时程序员需要考虑诸如数据分布存储管理、数据分发、数据通信和同步、计算结果收集等诸多细节问题。<br>MapReduce提供了一种抽象机制将程序员与系统层细节隔离开来，程序员仅需描述需要计算什么（What to compute），而具体怎么去计算（How to compute）就交由系统的执行框架处理，这样程序员可从系统层细节中解放出来，而致力于其应用本身计算问题的算法设计。</p>
+</li>
+<li><p>平滑无缝的可扩展性<br>这里指出的可扩展性主要包括两层意义上的扩展性：数据扩展和系统规模扩展性。<br>理想的软件算法应当能随着数据规模的扩大而表现出持续的有效性，性能上的下降程度应与数据规模扩大的倍数相当；在集群规模上，要求算法的计算性能应能随着节点数的增加保持接近线性程度的增长。绝大多数现有的单机算法都达不到 以上理想的要求；把中间结果数据维护在内存中的单机算法在大规模数据处理时很快失效；从单机到基于大规模集群的并行计算从根本上需要完全不同的算法设计。奇妙的是，MapReduce在很多情形下能实现以上理想的扩展性特征。<br>多项研究发现，对于很多计算问题，基于MapReduce的计算性能可随节点数目增长保持近似于线性的增长。</p>
+</li>
+</ol>
+<h2 id="3-_MapReduce_u600E_u4E48_u505A"><a href="#3-_MapReduce_u600E_u4E48_u505A" class="headerlink" title="3. MapReduce怎么做"></a><strong> 3. MapReduce怎么做 </strong></h2><h3 id="3-1__u62BD_u8C61_u6A21_u578B"><a href="#3-1__u62BD_u8C61_u6A21_u578B" class="headerlink" title="3.1 抽象模型"></a>3.1 抽象模型</h3><p>Map: 对一组数据元素进行某种重复式的处理<br>Reduce: 对Map的中间结果进行某种进一步的结果整<br><img src="http://7xpmfi.com1.z0.glb.clouddn.com/%40%2Fimgabstract_model.png?imageView2/2/w/400/h/300/q/100|watermark/2/text/TG91c2FtYQ==/font/5b6u6L2v6ZuF6buR/fontsize/300/fill/I0U1QTg4RA==/dissolve/90/gravity/SouthEast/dx/10/dy/10" alt="MapReduce抽象模型"></p>
+<p>MapReduce借鉴了函数式程序设计语言Lisp中的思想，定义了如下的Map和Reduce两个抽象的编程接口，由用户去编程实现:</p>
+<p><strong> map: (k1; v1) → [(k2; v2)]: </strong></p>
+<ul>
+<li>输入：键值对(k1; v1)表示的数据</li>
+<li>处理：文档数据记录(如文本文件中的行，或数据表格中的行)将以“键值对”形式传入map函数；map函数将处理这些键值对，并以另一种键值对形式输出处理的一组键值对中间结果[(k2; v2)]</li>
+<li>输出：键值对[(k2; v2)]表示的一组中间数据</li>
+</ul>
+<p><strong> reduce: (k2; [v2]) → [(k3; v3)]: </strong></p>
+<ul>
+<li>输入： 由map输出的一组键值对[(k2; v2)] 将被进行合并处理(combiner)将同样主键下的不同数值合并到一个列表[v2]中，故reduce的输入为(k2; [v2])</li>
+<li>处理：对传入的中间结果列表数据进行某种整理或进一步的处理,并产生最终的某种形式的结果输出[(k3; v3)] </li>
+<li>输出：最终输出结果[(k3; v3)]</li>
+</ul>
+<p>我们可以摘引官方文档这段的描述：</p>
+<blockquote>
+<p><strong>  Input and Output types of a MapReduce job:  </strong><br><strong>  (input) &lt; k1, v1 &gt; -&gt; map -&gt; &lt; k2, v2 &gt; -&gt; combine -&gt; &lt; k2, v2 &gt; -&gt; reduce -&gt; &lt; k3, v3 &gt; (output)  </strong></p>
+</blockquote>
+<h3 id="3-2__u8303_u4F8B-_u8BCD_u9891_u7EDF_u8BA1"><a href="#3-2__u8303_u4F8B-_u8BCD_u9891_u7EDF_u8BA1" class="headerlink" title="3.2 范例-词频统计"></a>3.2 范例-词频统计</h3><p>有以下四组原始文本数据：</p>
+<blockquote>
+<ul>
+<li>Text1: the weather is good</li>
+<li>Text2: today is good</li>
+<li>Text3: good weather is good</li>
+<li>Text4: today has good weather</li>
+</ul>
+</blockquote>
+<p><strong> 统计每个单词出现的次数 </strong></p>
+<p>传统的串行处理方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String[] text = <span class="keyword">new</span> String[] &#123; <span class="string">"the weather is good"</span>, </span><br><span class="line">                                   <span class="string">"today is good"</span>, </span><br><span class="line">                                   <span class="string">"good weather is good"</span>,</span><br><span class="line">                                   <span class="string">"today has good weather"</span>&#125;;</span><br><span class="line">    Hashtable ht = <span class="keyword">new</span> Hashtable();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; text.length; ++i) &#123;</span><br><span class="line">        StringTokenizer st = <span class="keyword">new</span> StringTokenizer(text[i]);</span><br><span class="line">        <span class="keyword">while</span> (st.hasMoreTokens()) &#123;</span><br><span class="line">            String word = st.nextToken();</span><br><span class="line">            <span class="keyword">if</span>(!ht.containsKey(word)) &#123;</span><br><span class="line">                ht.put(word, <span class="keyword">new</span> Integer(<span class="number">1</span>));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 计数加1</span></span><br><span class="line">                <span class="keyword">int</span> wc = ((Integer)ht.get(word)).intValue() +<span class="number">1</span>;</span><br><span class="line">                ht.put(word, <span class="keyword">new</span> Integer(wc));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (Iterator itr=ht.keySet().iterator();  itr.hasNext();) &#123;</span><br><span class="line">        String word = (String)itr.next();</span><br><span class="line">        System.out.print(word+ <span class="string">":"</span>+ (Integer)ht.get(word)+<span class="string">";"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MapReduce的处理方式：<br>使用4个map节点：</p>
+<ul>
+<li><p><strong> map节点1: </strong><br><strong> 输入：</strong> (text1, “the weather is good”)<br><strong> 输出：</strong> (the, 1), (weather, 1), (is, 1), (good, 1)</p>
+</li>
+<li><p><strong> map节点2: </strong><br><strong> 输入：</strong> (text2, “today is good”)<br><strong> 输出：</strong> (today, 1), (is, 1), (good, 1)</p>
+</li>
+<li><p><strong> map节点3: </strong><br><strong> 输入：</strong> (text3, “good weather is good”)<br><strong> 输出：</strong> (good, 1), (weather, 1), (is, 1), (good, 1)</p>
+</li>
+<li><p><strong> map节点4: </strong><br><strong> 输入：</strong> (text4, “today has good weather”)<br><strong> 输出：</strong> (today, 1), (has, 1), (good, 1), (weather, 1)</p>
+</li>
+</ul>
+<p><img src="http://7xpmfi.com1.z0.glb.clouddn.com/%40%2Fimgword_count.png?imageView2/2/w/500/h/300/q/100|watermark/2/text/TG91c2FtYQ==/font/5b6u6L2v6ZuF6buR/fontsize/300/fill/I0U1QTg4RA==/dissolve/90/gravity/SouthEast/dx/10/dy/10" alt="Reduce节点"></p>
 
       
     </div>
