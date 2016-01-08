@@ -220,15 +220,7 @@
 <hr>
 <h2 id="u5404_u79CD_u5FEB"><a href="#u5404_u79CD_u5FEB" class="headerlink" title="各种快"></a><strong> 各种快 </strong></h2><h3 id="u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D"><a href="#u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D" class="headerlink" title="在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍"></a>在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍</h3><p>Spark使用先进的<strong><a href="/#">DAG</a>(Directed Acyclic Graph)</strong>执行引擎并且支持循环数据流和内存计算。  </p>
 <p>引用官网的一张图：</p>
-<p><img src="/img/blog/spark/logistic-regression.png" alt="Logistic regression in Hadoop and Spark">                        </p>
-<h2 id="u5404_u79CD_u597D_u7528"><a href="#u5404_u79CD_u597D_u7528" class="headerlink" title="各种好用"></a><strong> 各种好用 </strong></h2><h3 id="u5728Java_2CScala_2CPython_u7B49_u8BED_u8A00_u4E2D_u975E_u5E38_u7B80_u4FBF_u5FEB_u6377_u5730_u7F16_u5199_u7A0B_u5E8F"><a href="#u5728Java_2CScala_2CPython_u7B49_u8BED_u8A00_u4E2D_u975E_u5E38_u7B80_u4FBF_u5FEB_u6377_u5730_u7F16_u5199_u7A0B_u5E8F" class="headerlink" title="在Java,Scala,Python等语言中非常简便快捷地编写程序"></a>在Java,Scala,Python等语言中非常简便快捷地编写程序</h3><p>Spark提供了80多种操作指令，能够非常简单的开发并行应用程序，并且能在不同语言之间交互使用。</p>
-<p>例如Spark’s Python实现的Word count:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">text_file = spark.textFile(<span class="string">"hdfs://..."</span>)</span><br><span class="line">text_file.flatMap(<span class="keyword">lambda</span> line: line.split())</span><br><span class="line">    .map(<span class="keyword">lambda</span> word: (word, <span class="number">1</span>))</span><br><span class="line">    .reduceByKey(<span class="keyword">lambda</span> a, b: a+b)</span><br></pre></td></tr></table></figure>
-<h2 id="u6982_u8981"><a href="#u6982_u8981" class="headerlink" title="概要"></a><strong> 概要 </strong></h2><h3 id="u5305_u62ECSQL_u5904_u7406_uFF0C_u6D41_u5904_u7406_u548C_u590D_u6742_u7684_u6570_u636E_u5206_u6790"><a href="#u5305_u62ECSQL_u5904_u7406_uFF0C_u6D41_u5904_u7406_u548C_u590D_u6742_u7684_u6570_u636E_u5206_u6790" class="headerlink" title="包括SQL处理，流处理和复杂的数据分析"></a>包括SQL处理，流处理和复杂的数据分析</h3><p>Spark提供了非常丰富的库，包括SQL出库库<a href="http://spark.apache.org/sql/" target="_blank" rel="external">SQL and DataFrames</a>，机器学习库<a href="http://spark.apache.org/mllib/" target="_blank" rel="external">MLlib</a>，图形处理<a href="http://spark.apache.org/graphx/" target="_blank" rel="external">GraphX</a>和流处理<a href="http://spark.apache.org/streaming/" target="_blank" rel="external">Spark Streaming</a>，你可以在一个应用里无缝的整合这些库。</p>
-<p>Spark的栈库：<br><img src="/img/blog/spark/spark-stack.png" alt="spark-stack"></p>
-<h2 id="u5404_u79CD_u8FD0_u884C"><a href="#u5404_u79CD_u8FD0_u884C" class="headerlink" title="各种运行"></a><strong> 各种运行 </strong></h2><h3 id="Spark_u53EF_u4EE5_u8FD0_u884C_u5728Hadoop_uFF0CMesos_uFF0Cstandalone_or_cloud_uFF0C_u53EF_u4EE5_u8BBF_u95EE_u5404_u79CD_u4E0D_u540C_u7684_u6570_u636E_u6E90_uFF0C_u5982_uFF1AHDFS_uFF0CCassandra_uFF0CHBase_u4EE5_u53CAS3"><a href="#Spark_u53EF_u4EE5_u8FD0_u884C_u5728Hadoop_uFF0CMesos_uFF0Cstandalone_or_cloud_uFF0C_u53EF_u4EE5_u8BBF_u95EE_u5404_u79CD_u4E0D_u540C_u7684_u6570_u636E_u6E90_uFF0C_u5982_uFF1AHDFS_uFF0CCassandra_uFF0CHBase_u4EE5_u53CAS3" class="headerlink" title="Spark可以运行在Hadoop，Mesos，standalone or cloud，可以访问各种不同的数据源，如：HDFS，Cassandra，HBase以及S3"></a>Spark可以运行在Hadoop，Mesos，standalone or cloud，可以访问各种不同的数据源，如：HDFS，Cassandra，HBase以及S3</h3><p>可以在<a href="http://spark.apache.org/docs/latest/ec2-scripts.html" target="_blank" rel="external">EC2</a>上运行Spark的 <a href="http://spark.apache.org/docs/latest/spark-standalone.html" target="_blank" rel="external">standalone cluster mode</a>，也可以在Hadoop YARN 或 Apache Mesos上运行，可以访问各种类型的数据如： HDFS, Cassandra, HBase, Hive, Tachyon。</p>
-<p>spark-runs-everywhere：<br><img src="/img/blog/spark/spark-runs-everywhere.png" alt="spark-runs-everywhere"></p>
-
+<p><img src="/img/blog/spark/logistic-regression.png" alt="Logistic regression in Hadoop and Spark"><br>
       
     </div>
     
@@ -245,6 +237,10 @@
 	</div>
 
 
+      
+        <p class="article-more-link">
+          <a  href="/2016/01/08/Spark学习笔记/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
