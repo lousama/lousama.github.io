@@ -4,36 +4,36 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>mac ssh without password | Lousama</title>
+  <title>Spark学习笔记之简介篇 | Lousama</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。后来捣鼓了半天，终于搞定了免密码登陆服务器。其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。
+  <meta name="description" content="Apache Spark是一个效率极高的大数据处理引擎 
 
-本地生成密钥
-
-1$ ssh-keygen -t rsa
-然后就会看到.ssh目录下生成的私钥和公钥
-123$ ls ~/.ssh">
+ 各种快 在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍Spark使用先进的DAG(Directed Acyclic Graph)执行引擎并且支持循环数据流和内存计算。  
+引用官网的一张图：
+                        
+ 各种好用 在Java,Scala,Python等语言中非常简便">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mac ssh without password">
-<meta property="og:url" content="http://lousama.com/2015/08/12/mac-ssh-without-password/index.html">
+<meta property="og:title" content="Spark学习笔记之简介篇">
+<meta property="og:url" content="http://lousama.com/2016/01/08/Spark学习笔记/index.html">
 <meta property="og:site_name" content="Lousama">
-<meta property="og:description" content="最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。后来捣鼓了半天，终于搞定了免密码登陆服务器。其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。
+<meta property="og:description" content="Apache Spark是一个效率极高的大数据处理引擎 
 
-本地生成密钥
-
-1$ ssh-keygen -t rsa
-然后就会看到.ssh目录下生成的私钥和公钥
-123$ ls ~/.ssh">
-<meta property="og:updated_time" content="2016-01-04T16:07:26.000Z">
+ 各种快 在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍Spark使用先进的DAG(Directed Acyclic Graph)执行引擎并且支持循环数据流和内存计算。  
+引用官网的一张图：
+                        
+ 各种好用 在Java,Scala,Python等语言中非常简便">
+<meta property="og:image" content="http://lousama.com/img/blog/spark/logistic-regression.png">
+<meta property="og:image" content="http://lousama.com/img/blog/spark/spark-stack.png">
+<meta property="og:image" content="http://lousama.com/img/blog/spark/spark-runs-everywhere.png">
+<meta property="og:updated_time" content="2016-01-08T05:32:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mac ssh without password">
-<meta name="twitter:description" content="最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。后来捣鼓了半天，终于搞定了免密码登陆服务器。其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。
+<meta name="twitter:title" content="Spark学习笔记之简介篇">
+<meta name="twitter:description" content="Apache Spark是一个效率极高的大数据处理引擎 
 
-本地生成密钥
-
-1$ ssh-keygen -t rsa
-然后就会看到.ssh目录下生成的私钥和公钥
-123$ ls ~/.ssh">
+ 各种快 在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍Spark使用先进的DAG(Directed Acyclic Graph)执行引擎并且支持循环数据流和内存计算。  
+引用官网的一张图：
+                        
+ 各种好用 在Java,Scala,Python等语言中非常简便">
   
   
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
@@ -207,11 +207,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-mac-ssh-without-password" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Spark学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/08/12/mac-ssh-without-password/" class="article-date">
-  	<time datetime="2015-08-12T02:43:16.000Z" itemprop="datePublished">2015-08-12</time>
+      <a href="/2016/01/08/Spark学习笔记/" class="article-date">
+  	<time datetime="2016-01-08T03:33:26.000Z" itemprop="datePublished">2016-01-08</time>
 </a>
     </div>
   
@@ -224,7 +224,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      mac ssh without password
+      Spark学习笔记之简介篇
     </h1>
   
 
@@ -233,12 +233,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pgg/">pgg</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	<a class="article-category-link" href="/categories/Spark/">Spark</a>
 	</div>
 
 
@@ -248,31 +248,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。<br>不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。<br>后来捣鼓了半天，终于搞定了免密码登陆服务器。<br>其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。</p>
-<ul>
-<li><h3 id="u672C_u5730_u751F_u6210_u5BC6_u94A5"><a href="#u672C_u5730_u751F_u6210_u5BC6_u94A5" class="headerlink" title="本地生成密钥"></a>本地生成密钥</h3></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
-<p>然后就会看到.ssh目录下生成的私钥和公钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.ssh  </span><br><span class="line">    id_rsa  //私钥 </span><br><span class="line">    id_rsa.pub    //公钥</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h3 id="u914D_u7F6Essh_config"><a href="#u914D_u7F6Essh_config" class="headerlink" title="配置ssh config"></a>配置ssh config</h3><a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.ssh/config  </span><br><span class="line">    Host <span class="built_in">test</span> //host简称,完成之后可以直接通过ssh+简称完成登陆  </span><br><span class="line">    HostName <span class="number">192.168</span>.xx.xx   //服务器地址  </span><br><span class="line">    Port <span class="number">22</span>  //服务器端口  </span><br><span class="line">    User root   //登陆名称  </span><br><span class="line">    PreferredAuthentications publickey  //认证方式 此处值为公钥认证  </span><br><span class="line">    IdentityFile ~/.ssh/id_rsa   //私钥文件</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="u516C_u94A5_u653E_u5728_u76EE_u6807_u670D_u52A1_u5668"><a href="#u516C_u94A5_u653E_u5728_u76EE_u6807_u670D_u52A1_u5668" class="headerlink" title="公钥放在目标服务器"></a>公钥放在目标服务器</h3></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scp ~/.ssh/id_rsa.pub root@HostName:~/.ssh</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h3 id="u5199_u5165_u516C_u94A5"><a href="#u5199_u5165_u516C_u94A5" class="headerlink" title="写入公钥"></a>写入公钥</h3></li>
-</ul>
-<p>root用户登陆目标服务器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.ssh  </span><br><span class="line">    id_rsa.pub  authorized_keys</span><br></pre></td></tr></table></figure>
-<p>接下来把公钥写进authorized_keys中，如果~/.ssh下没有 则新建一个 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~/.ssh/authorized_keys   //新建authorized_keys  </span><br><span class="line">$ cat id_rsa.pub &gt;&gt; authorized_keys //写入公钥</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>tips:如果登陆的不是root用户，那么需要把公钥放在/home/user/.ssh下面，user对应的是登陆用户名 </p>
-</blockquote>
-<p>这样就大功告成了！<br>直接在本机终端 ssh test，试下是不是连通了？</p>
+        <p><strong> Apache Spark是一个效率极高的大数据处理引擎 </strong></p>
+<hr>
+<h2 id="u5404_u79CD_u5FEB"><a href="#u5404_u79CD_u5FEB" class="headerlink" title="各种快"></a><strong> 各种快 </strong></h2><h3 id="u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D"><a href="#u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D" class="headerlink" title="在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍"></a>在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍</h3><p>Spark使用先进的<strong><a href="/#">DAG</a>(Directed Acyclic Graph)</strong>执行引擎并且支持循环数据流和内存计算。  </p>
+<p>引用官网的一张图：</p>
+<p><img src="/img/blog/spark/logistic-regression.png" alt="Logistic regression in Hadoop and Spark">                        </p>
+<h2 id="u5404_u79CD_u597D_u7528"><a href="#u5404_u79CD_u597D_u7528" class="headerlink" title="各种好用"></a><strong> 各种好用 </strong></h2><h3 id="u5728Java_2CScala_2CPython_u7B49_u8BED_u8A00_u4E2D_u975E_u5E38_u7B80_u4FBF_u5FEB_u6377_u5730_u7F16_u5199_u7A0B_u5E8F"><a href="#u5728Java_2CScala_2CPython_u7B49_u8BED_u8A00_u4E2D_u975E_u5E38_u7B80_u4FBF_u5FEB_u6377_u5730_u7F16_u5199_u7A0B_u5E8F" class="headerlink" title="在Java,Scala,Python等语言中非常简便快捷地编写程序"></a>在Java,Scala,Python等语言中非常简便快捷地编写程序</h3><p>Spark提供了80多种操作指令，能够非常简单的开发并行应用程序，并且能在不同语言之间交互使用。</p>
+<p>例如Spark’s Python实现的Word count:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">text_file = spark.textFile(<span class="string">"hdfs://..."</span>)</span><br><span class="line">text_file.flatMap(<span class="keyword">lambda</span> line: line.split())</span><br><span class="line">    .map(<span class="keyword">lambda</span> word: (word, <span class="number">1</span>))</span><br><span class="line">    .reduceByKey(<span class="keyword">lambda</span> a, b: a+b)</span><br></pre></td></tr></table></figure>
+<h2 id="u6982_u8981"><a href="#u6982_u8981" class="headerlink" title="概要"></a><strong> 概要 </strong></h2><h3 id="u5305_u62ECSQL_u5904_u7406_uFF0C_u6D41_u5904_u7406_u548C_u590D_u6742_u7684_u6570_u636E_u5206_u6790"><a href="#u5305_u62ECSQL_u5904_u7406_uFF0C_u6D41_u5904_u7406_u548C_u590D_u6742_u7684_u6570_u636E_u5206_u6790" class="headerlink" title="包括SQL处理，流处理和复杂的数据分析"></a>包括SQL处理，流处理和复杂的数据分析</h3><p>Spark提供了非常丰富的库，包括SQL出库库<a href="http://spark.apache.org/sql/" target="_blank" rel="external">SQL and DataFrames</a>，机器学习库<a href="http://spark.apache.org/mllib/" target="_blank" rel="external">MLlib</a>，图形处理<a href="http://spark.apache.org/graphx/" target="_blank" rel="external">GraphX</a>和流处理<a href="http://spark.apache.org/streaming/" target="_blank" rel="external">Spark Streaming</a>，你可以在一个应用里无缝的整合这些库。</p>
+<p>Spark的栈库：<br><img src="/img/blog/spark/spark-stack.png" alt="spark-stack"></p>
+<h2 id="u5404_u79CD_u8FD0_u884C"><a href="#u5404_u79CD_u8FD0_u884C" class="headerlink" title="各种运行"></a><strong> 各种运行 </strong></h2><h3 id="Spark_u53EF_u4EE5_u8FD0_u884C_u5728Hadoop_uFF0CMesos_uFF0Cstandalone_or_cloud_uFF0C_u53EF_u4EE5_u8BBF_u95EE_u5404_u79CD_u4E0D_u540C_u7684_u6570_u636E_u6E90_uFF0C_u5982_uFF1AHDFS_uFF0CCassandra_uFF0CHBase_u4EE5_u53CAS3"><a href="#Spark_u53EF_u4EE5_u8FD0_u884C_u5728Hadoop_uFF0CMesos_uFF0Cstandalone_or_cloud_uFF0C_u53EF_u4EE5_u8BBF_u95EE_u5404_u79CD_u4E0D_u540C_u7684_u6570_u636E_u6E90_uFF0C_u5982_uFF1AHDFS_uFF0CCassandra_uFF0CHBase_u4EE5_u53CAS3" class="headerlink" title="Spark可以运行在Hadoop，Mesos，standalone or cloud，可以访问各种不同的数据源，如：HDFS，Cassandra，HBase以及S3"></a>Spark可以运行在Hadoop，Mesos，standalone or cloud，可以访问各种不同的数据源，如：HDFS，Cassandra，HBase以及S3</h3><p>可以在<a href="http://spark.apache.org/docs/latest/ec2-scripts.html" target="_blank" rel="external">EC2</a>上运行Spark的 <a href="http://spark.apache.org/docs/latest/spark-standalone.html" target="_blank" rel="external">standalone cluster mode</a>，也可以在Hadoop YARN 或 Apache Mesos上运行，可以访问各种类型的数据如： HDFS, Cassandra, HBase, Hive, Tachyon。</p>
+<p>spark-runs-everywhere：<br><img src="/img/blog/spark/spark-runs-everywhere.png" alt="spark-runs-everywhere"></p>
 
       
     </div>
@@ -282,18 +269,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/12/29/生产事故处理/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          记一次生产事故
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/04/01/servlet-exception/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">getOutputStream() has already been called for this response] with root cause</div>
+    <a href="/2016/01/06/MapReduce浅析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hadoop学习笔记之MapReduce浅析</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -324,7 +302,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="mac-ssh-without-password" data-title="mac ssh without password" data-url="http://lousama.com/2015/08/12/mac-ssh-without-password/"></div>
+	<div class="ds-thread" data-thread-key="Spark学习笔记" data-title="Spark学习笔记之简介篇" data-url="http://lousama.com/2016/01/08/Spark学习笔记/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
