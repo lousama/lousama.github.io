@@ -4,36 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>mac ssh without password | Lousama</title>
+  <title>好马配好鞍，Mac OS Ⅹ 神器之Homebrew | Lousama</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。后来捣鼓了半天，终于搞定了免密码登陆服务器。其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。
-
-1. 本地生成密钥
-
-1$ ssh-keygen -t rsa
-然后就会看到.ssh目录下生成的私钥和公钥
-123$ ls ~/.ss">
+  <meta name="description" content="最近入手了Mac，迫不及待的要使用传说中的神器Homebrew了，没错！就是之前传闻作者因写不出反转二叉树而被Google拒了的那个。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mac ssh without password">
-<meta property="og:url" content="http://lousama.com/2015/08/12/mac-ssh-without-password/index.html">
+<meta property="og:title" content="好马配好鞍，Mac OS Ⅹ 神器之Homebrew">
+<meta property="og:url" content="http://lousama.com/2015/07/11/homebrew/index.html">
 <meta property="og:site_name" content="Lousama">
-<meta property="og:description" content="最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。后来捣鼓了半天，终于搞定了免密码登陆服务器。其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。
-
-1. 本地生成密钥
-
-1$ ssh-keygen -t rsa
-然后就会看到.ssh目录下生成的私钥和公钥
-123$ ls ~/.ss">
-<meta property="og:updated_time" content="2016-01-11T04:13:59.000Z">
+<meta property="og:description" content="最近入手了Mac，迫不及待的要使用传说中的神器Homebrew了，没错！就是之前传闻作者因写不出反转二叉树而被Google拒了的那个。">
+<meta property="og:updated_time" content="2016-01-11T07:40:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mac ssh without password">
-<meta name="twitter:description" content="最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。后来捣鼓了半天，终于搞定了免密码登陆服务器。其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。
-
-1. 本地生成密钥
-
-1$ ssh-keygen -t rsa
-然后就会看到.ssh目录下生成的私钥和公钥
-123$ ls ~/.ss">
+<meta name="twitter:title" content="好马配好鞍，Mac OS Ⅹ 神器之Homebrew">
+<meta name="twitter:description" content="最近入手了Mac，迫不及待的要使用传说中的神器Homebrew了，没错！就是之前传闻作者因写不出反转二叉树而被Google拒了的那个。">
   
   
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
@@ -207,11 +189,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-mac-ssh-without-password" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-homebrew" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/08/12/mac-ssh-without-password/" class="article-date">
-  	<time datetime="2015-08-12T02:43:16.000Z" itemprop="datePublished">2015-08-12</time>
+      <a href="/2015/07/11/homebrew/" class="article-date">
+  	<time datetime="2015-07-11T07:18:49.000Z" itemprop="datePublished">2015-07-11</time>
 </a>
     </div>
   
@@ -224,7 +206,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      mac ssh without password
+      好马配好鞍，Mac OS Ⅹ 神器之Homebrew
     </h1>
   
 
@@ -232,15 +214,7 @@
       
       <div class="article-info article-info-post">
         
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pgg/">pgg</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
-	</div>
-
         
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Linux/">Linux</a>
-	</div>
-
 
         <div class="clearfix"></div>
       </div>
@@ -248,31 +222,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。<br>不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。<br>后来捣鼓了半天，终于搞定了免密码登陆服务器。<br>其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。</p>
-<ul>
-<li><h3 id="1-__u672C_u5730_u751F_u6210_u5BC6_u94A5"><a href="#1-__u672C_u5730_u751F_u6210_u5BC6_u94A5" class="headerlink" title="1. 本地生成密钥"></a>1. 本地生成密钥</h3></li>
+        <p>最近入手了Mac，迫不及待的要使用传说中的神器Homebrew了，没错！就是之前传闻作者因写不出反转二叉树而被Google拒了的那个。</p>
+<a id="more"></a>
+<h2 id="1-__u5B89_u88C5Homebrew"><a href="#1-__u5B89_u88C5Homebrew" class="headerlink" title="1. 安装Homebrew"></a><strong> 1. 安装Homebrew </strong></h2><h3 id="1-1__u5B89_u88C5_u9700_u6C42"><a href="#1-1__u5B89_u88C5_u9700_u6C42" class="headerlink" title="1.1 安装需求"></a>1.1 安装需求</h3><ul>
+<li>An Intel CPU[^1]   – 基本无视</li>
+<li>OS X 10.9 or higher  – 推荐系统版本10.9以上，10.5-10.8尽力支持基础功能</li>
+<li>Command Line Tools for Xcode: xcode-select –install</li>
+<li>A Bourne-compatible shell for installation (e.g. bash or zsh)</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
-<p>然后就会看到.ssh目录下生成的私钥和公钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.ssh  </span><br><span class="line">    id_rsa  //私钥 </span><br><span class="line">    id_rsa.pub    //公钥</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h3 id="2-__u914D_u7F6Essh_config"><a href="#2-__u914D_u7F6Essh_config" class="headerlink" title="2. 配置ssh config"></a>2. 配置ssh config</h3><a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.ssh/config  </span><br><span class="line">    Host <span class="built_in">test</span> //host简称,完成之后可以直接通过ssh+简称完成登陆  </span><br><span class="line">    HostName <span class="number">192.168</span>.xx.xx   //服务器地址  </span><br><span class="line">    Port <span class="number">22</span>  //服务器端口  </span><br><span class="line">    User root   //登陆名称  </span><br><span class="line">    PreferredAuthentications publickey  //认证方式 此处值为公钥认证  </span><br><span class="line">    IdentityFile ~/.ssh/id_rsa   //私钥文件</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="3-__u516C_u94A5_u653E_u5728_u76EE_u6807_u670D_u52A1_u5668"><a href="#3-__u516C_u94A5_u653E_u5728_u76EE_u6807_u670D_u52A1_u5668" class="headerlink" title="3. 公钥放在目标服务器"></a>3. 公钥放在目标服务器</h3></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scp ~/.ssh/id_rsa.pub root@HostName:~/.ssh</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h3 id="4-__u5199_u5165_u516C_u94A5"><a href="#4-__u5199_u5165_u516C_u94A5" class="headerlink" title="4. 写入公钥"></a>4. 写入公钥</h3></li>
-</ul>
-<p>root用户登陆目标服务器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.ssh  </span><br><span class="line">    id_rsa.pub  authorized_keys</span><br></pre></td></tr></table></figure>
-<p>接下来把公钥写进authorized_keys中，如果~/.ssh下没有 则新建一个 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~/.ssh/authorized_keys   //新建authorized_keys  </span><br><span class="line">$ cat id_rsa.pub &gt;&gt; authorized_keys //写入公钥</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>tips:如果登陆的不是root用户，那么需要把公钥放在/home/user/.ssh下面，user对应的是登陆用户名 </p>
-</blockquote>
-<p>这样就大功告成了！<br>直接在本机终端 ssh test，试下是不是连通了？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>[^1] :wushi</p>
 
       
     </div>
@@ -282,18 +241,18 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/12/29/生产事故处理/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/08/12/mac-ssh-without-password/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          记一次生产事故
+          mac ssh without password
         
       </div>
     </a>
   
   
-    <a href="/2015/07/11/homebrew/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">好马配好鞍，Mac OS Ⅹ 神器之Homebrew</div>
+    <a href="/2015/04/01/servlet-exception/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">getOutputStream() has already been called for this response] with root cause</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -324,7 +283,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="mac-ssh-without-password" data-title="mac ssh without password" data-url="http://lousama.com/2015/08/12/mac-ssh-without-password/"></div>
+	<div class="ds-thread" data-thread-key="homebrew" data-title="好马配好鞍，Mac OS Ⅹ 神器之Homebrew" data-url="http://lousama.com/2015/07/11/homebrew/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
