@@ -4,17 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Archives: 2015/12 | Lousama</title>
+  <title>Spark学习笔记之入门篇 | Lousama</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="lousama |  Lousama | Java | linux | shell | beatles | mac | pgg | dayima">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lousama">
-<meta property="og:url" content="http://lousama.com/archives/2015/12/index.html">
+  <meta name="description" content="1. 概括 每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark学习笔记之入门篇">
+<meta property="og:url" content="http://lousama.com/2016/01/11/Spark入门篇/index.html">
 <meta property="og:site_name" content="Lousama">
-<meta property="og:description" content="lousama |  Lousama | Java | linux | shell | beatles | mac | pgg | dayima">
+<meta property="og:description" content="1. 概括 每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个">
+<meta property="og:updated_time" content="2016-01-11T04:11:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lousama">
-<meta name="twitter:description" content="lousama |  Lousama | Java | linux | shell | beatles | mac | pgg | dayima">
+<meta name="twitter:title" content="Spark学习笔记之入门篇">
+<meta name="twitter:description" content="1. 概括 每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个">
   
   
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
@@ -188,92 +189,123 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-Spark入门篇" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/12/30/grep-commond-not-found/" class="archive-article-date">
-  	<time datetime="2015-12-30T12:15:09.000Z" itemprop="datePublished">Dec 30</time>
+    <div class="article-meta">
+      <a href="/2016/01/11/Spark入门篇/" class="article-date">
+  	<time datetime="2016-01-11T03:34:12.000Z" itemprop="datePublished">2016-01-11</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/30/grep-commond-not-found/">sh中grep:commond not found解决办法</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spark学习笔记之入门篇
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/grep/">grep</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li></ul>
 	</div>
 
-          
+        
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	<a class="article-category-link" href="/categories/Spark/">Spark</a>
 	</div>
 
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-__u6982_u62EC"><a href="#1-__u6982_u62EC" class="headerlink" title="1. 概括"></a><strong> 1. 概括 </strong></h2><p>每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。<br>Spark一个重要的抽象模型是<strong>RDD(resilient distributed dataset)</strong>，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过<strong>transformation(RDD的一个基本操作之一，后面会讲到)</strong>得来。用户也可以把一个RDD持久化到内存中，可以在并行操作中更高效的复用。还有非常重要的一点，RDDs出现节点故障时可以自动恢复。</p>
+<p>Spark另一个抽象概念是可以在并行操作中共享变量，默认Spark在不同节点的任务集并行执行一个方法的时候，它会复制每一个变量到每一个任务中，有时变量需要跨任务共享。</p>
+<p>Spark支持两种共享变量模式：</p>
+<blockquote>
+<ul>
+<li><strong>广播变量(broadcast variables)：</strong><ul>
+<li>可以缓存值在所有节点的内存中。</li>
+</ul>
+</li>
+<li><strong>累加器(accumulators)：</strong><ul>
+<li>只能通过“added”得到的变量，类似计数器或求和。 </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="2-__u5B89_u88C5"><a href="#2-__u5B89_u88C5" class="headerlink" title="2. 安装"></a><strong> 2. 安装 </strong></h2>
+      
+    </div>
+    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/01/08/Spark学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark学习笔记之简介篇</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/12/29/生产事故处理/" class="archive-article-date">
-  	<time datetime="2015-12-29T15:52:32.000Z" itemprop="datePublished">Dec 29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/29/生产事故处理/">记一次生产事故</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Netty/">Netty</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事故/">事故</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生产/">生产</a></li></ul>
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_weixin"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathisiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
-	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Spark入门篇" data-title="Spark学习笔记之入门篇" data-url="http://lousama.com/2016/01/11/Spark入门篇/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"lousama"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -306,8 +338,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
