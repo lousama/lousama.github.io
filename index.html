@@ -112,7 +112,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MapReduce/" style="font-size: 10px;">MapReduce</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Spark/" style="font-size: 15px;">Spark</a> <a href="/tags/grep/" style="font-size: 10px;">grep</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/pgg/" style="font-size: 10px;">pgg</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/事故/" style="font-size: 10px;">事故</a> <a href="/tags/生产/" style="font-size: 10px;">生产</a>
+						<a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/MapReduce/" style="font-size: 10px;">MapReduce</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/Scala/" style="font-size: 15px;">Scala</a> <a href="/tags/Shell-Linux/" style="font-size: 10px;">Shell.Linux</a> <a href="/tags/Spark/" style="font-size: 15px;">Spark</a> <a href="/tags/grep/" style="font-size: 10px;">grep</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/pgg/" style="font-size: 10px;">pgg</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/事故/" style="font-size: 10px;">事故</a> <a href="/tags/生产/" style="font-size: 10px;">生产</a>
 					</div>
 				</section>
 				
@@ -216,59 +216,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-__u6982_u62EC"><a href="#1-__u6982_u62EC" class="headerlink" title="1. 概括"></a>1. 概括</h1><p>每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。<br>Spark一个重要的抽象模型是<strong>RDD(resilient distributed dataset)</strong>，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过<strong>transformation(RDD的一个基本操作之一，后面会讲到)</strong>得来。用户也可以把一个RDD持久化到内存中，可以在并行操作中更高效的复用。还有非常重要的一点，RDDs出现节点故障时可以自动恢复。</p>
-<p>Spark另一个抽象概念是可以在并行操作中共享变量，默认Spark在不同节点的任务集并行执行一个方法的时候，它会复制每一个变量到每一个任务中，有时变量需要跨任务共享。</p>
-<p>Spark支持两种共享变量模式：</p>
-<blockquote>
-<ul>
-<li><strong>广播变量(broadcast variables)：</strong><ul>
-<li>可以缓存值在所有节点的内存中。</li>
-</ul>
-</li>
-<li><strong>累加器(accumulators)：</strong><ul>
-<li>只能通过“added”得到的变量，类似计数器或求和。 </li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h1 id="2-__u5B89_u88C5"><a href="#2-__u5B89_u88C5" class="headerlink" title="2. 安装"></a>2. 安装</h1><p>这里的安装只说一下Linux和Mac OS X系统下的安装。</p>
-<h2 id="2-1_OS_X"><a href="#2-1_OS_X" class="headerlink" title="2.1 OS X"></a>2.1 OS X</h2><p>OS X就简单了，直接homebrew无脑安装，什么？你还不知道homebrew？ <a href="/2015/07/11/homebrew/">点我安装</a></p>
-<h3 id="2-1-1__u5B89_u88C5scala"><a href="#2-1-1__u5B89_u88C5scala" class="headerlink" title="2.1.1 安装scala"></a>2.1.1 安装scala</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install scala</span><br></pre></td></tr></table></figure>
-<h3 id="2-1-2__u5B89_u88C5git"><a href="#2-1-2__u5B89_u88C5git" class="headerlink" title="2.1.2 安装git"></a>2.1.2 安装git</h3><p>因为pgg自带git，所以这一步就不需要啦</p>
-<h3 id="2-1-3__u5B89_u88C5spark"><a href="#2-1-3__u5B89_u88C5spark" class="headerlink" title="2.1.3 安装spark"></a>2.1.3 安装spark</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install spark</span><br></pre></td></tr></table></figure>
-<p>呵呵，so easy?</p>
-<h2 id="2-2_Linux"><a href="#2-2_Linux" class="headerlink" title="2.2 Linux"></a>2.2 Linux</h2><p>Linux安装的话，也一次是上述步骤</p>
-<h3 id="2-2-1__u5B89_u88C5scala"><a href="#2-2-1__u5B89_u88C5scala" class="headerlink" title="2.2.1 安装scala"></a>2.2.1 安装scala</h3><p>到<a href="http://www.scala-lang.org/old/node/165" target="_blank" rel="external">官网</a>下载最新的版本，解压后放在本地<code>/opt</code>下。<br>在<code>/etc/profile</code>里添加：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> SCALA_HOME=/opt/scala-<span class="number">2.9</span>.<span class="number">1</span>.final</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$SCALA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="2-2-2__u5B89_u88C5git"><a href="#2-2-2__u5B89_u88C5git" class="headerlink" title="2.2.2 安装git"></a>2.2.2 安装git</h3><p>到<a href="http://git-scm.com/download/linux" target="_blank" rel="external">官网</a> 查看不同版本Linux下git的安装，使用默认配置。</p>
-<h3 id="2-1-3__u5B89_u88C5spark-1"><a href="#2-1-3__u5B89_u88C5spark-1" class="headerlink" title="2.1.3 安装spark"></a>2.1.3 安装spark</h3><p>下载最新源码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://github.com/mesos/spark.git</span><br></pre></td></tr></table></figure></p>
-<p>得到目录spark后，进入spark目录，进入conf子目录，将 spark-env.sh-template 重命名为spark-env.sh，并添加以下代码行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> SCALA_HOME=/opt/scala-<span class="number">2.9</span>.<span class="number">1</span>.final</span><br></pre></td></tr></table></figure></p>
-<p>回到spark目录，开始编译，运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sbt/sbt update compile</span><br></pre></td></tr></table></figure></p>
-<p>这条命令会联网下载很多jar，然后会对spark进行编译，编译完成会提示success</p>
-<p>Spark自带了一些例子程序，在<code>examples/src/main</code>目录，OS X是<code>libexec/examples/src/main</code>，在要运行的话可以在Spark根目录执行<code>bin/run-example &lt;class&gt; [params]</code>口令，例如计算pi值<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/run-example SparkPi <span class="number">10</span></span><br></pre></td></tr></table></figure></p>
-<p>执行下列命令可以在命令行启动交互：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/spark-shell</span><br></pre></td></tr></table></figure></p>
-<p>然后启动日志里会有这么一句：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SparkUI: Started SparkUI at http://<span class="number">172.18</span>.<span class="number">1.101</span>:<span class="number">4040</span></span><br></pre></td></tr></table></figure></p>
-<p>在浏览器输入上述地址则可以在浏览器中查看执行的job。</p>
-<p>spark-shell启动后可以执行scala命令。</p>
-<h1 id="3-__u5F15_u5165"><a href="#3-__u5F15_u5165" class="headerlink" title="3. 引入"></a>3. 引入</h1><p>在Java中引入spark的话，可以在pom.xml中加入：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spark-core_2.10&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.6.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
-<p>如果你想在HDFS集群中访问的话，可以添加一个对应版本的hadoop-client的依赖：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;&lt;your-hdfs-version&gt;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Java类中需要引入的包基本如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.SparkConf;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.api.java.JavaPairRDD;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.api.java.JavaRDD;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.api.java.JavaSparkContext;</span><br></pre></td></tr></table></figure></p>
-<h1 id="4-RDD"><a href="#4-RDD" class="headerlink" title="4.RDD"></a>4.RDD</h1><p>RDDs支持两种类型的操作：</p>
-<blockquote>
-<ul>
-<li><strong> transformations: </strong><ul>
-<li>根据一个现有的RDD生成一个新的RDD   </li>
-</ul>
-</li>
-<li><strong> actions: </strong><ul>
-<li>计算返回结果</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<p>例如，<code>map</code>就是通过对一个数据集中每个元素执行指定的方法返回一个新的RDD作为结果。那<code>reduce</code>呢，就是对数据集中的元素通过指定的方法进行合并然后返回结果给驱动程序。</p>
-<p>所有的 <code>transformations</code> 操作都是延迟计算的，就是说不会马上计算出结果，<code>transformations</code> 只有在一个 <code>action</code> 操作需要返回结果的时候才会被计算。<br>这个设计可以让Spark有非常高的性能，例如我们能实现通过<code>map</code>生成一个RDD，用作于在<code>reduce</code>中计算，然后只把计算结果返回给驱动程序，而不是整个映射的数据集。</p>
-<p>默认的，每个转换过的RDD都有可能在执行action的时候被重新计算，所以你也可以调用<code>persist()</code>或者 <code>cache()</code>把RDD持久化到内存中。这样的话下次访问的话将会更快，Spark同样也支持持久化到磁盘，以及跨越节点复制。</p>
-
+        <h1 id="1-__u6982_u62EC"><a href="#1-__u6982_u62EC" class="headerlink" title="1. 概括"></a>1. 概括</h1><p>每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。<br>Spark一个重要的抽象模型是<strong>RDD(resilient distributed dataset)</strong>，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过<strong>transformation(RDD的一个基本操作之一，后面会讲到)</strong>得来。用户也可以把一个RDD持久化到内存中，可以在并行操作中更高效的复用。还有非常重要的一点，RDDs出现节点故障时可以自动恢复。<br>
       
     </div>
     
@@ -285,6 +233,10 @@
 	</div>
 
 
+      
+        <p class="article-more-link">
+          <a  href="/2016/01/11/Spark入门篇/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -558,6 +510,79 @@
         <p class="article-more-link">
           <a  href="/2015/12/29/生产事故处理/#more">more >></a>
         </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux-rzsz" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/11/linux-rzsz/" class="article-date">
+  	<time datetime="2015-09-11T12:32:38.000Z" itemprop="datePublished">2015-09-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/11/linux-rzsz/">Linux下rz/sz命令的简单安装</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-__u8BF4_u660E"><a href="#1-__u8BF4_u660E" class="headerlink" title="1. 说明"></a>1. 说明</h1><p>在SecureCRT之类的ssh登陆软件中，通过rz/sz命令来上传和下载文件非常的方便，对于大多数Linux系统来说，默认是不带rz/sz命令的，需要手动安装。</p>
+<ul>
+<li>rz: 弹出对话框，选择文件上传至当前目录<ul>
+<li>rz -y: 弹出对话框，选择文件上传至当前目录，若存在相同文件名直接覆盖</li>
+</ul>
+</li>
+<li>sz [file]: 下载文件至设定目录</li>
+</ul>
+<h1 id="2-__u5B89_u88C5"><a href="#2-__u5B89_u88C5" class="headerlink" title="2. 安装"></a>2. 安装</h1><h2 id="2-1__u4E0B_u8F7D"><a href="#2-1__u4E0B_u8F7D" class="headerlink" title="2.1 下载"></a>2.1 下载</h2><p>下载安装包 <a href="https://ohse.de/uwe/releases/lrzsz-0.12.20.tar.gz" target="_blank" rel="external">lrzsz-0.12.20.tar.gz</a>。<br>失效的话直接进<a href="http://www.ohse.de/uwe/software/lrzsz.html" target="_blank" rel="external">ohse</a>下载。</p>
+<h2 id="2-2__u5B89_u88C5"><a href="#2-2__u5B89_u88C5" class="headerlink" title="2.2 安装"></a>2.2 安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ tar xzvf lrzsz-<span class="number">0.12</span>.<span class="number">20</span>.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> lrzsz-<span class="number">0.12</span>.<span class="number">20</span></span><br><span class="line">$ ./configure &amp;&amp; make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>默认会安装到/usr/local/bin下面，添加软链接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /usr/bin</span><br><span class="line">$ ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/bin/lrz rz</span><br><span class="line">$ ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/bin/lsz sz</span><br></pre></td></tr></table></figure>
+<h1 id="3-__u8BBE_u7F6E"><a href="#3-__u8BBE_u7F6E" class="headerlink" title="3. 设置"></a>3. 设置</h1><p><code>SecureCRT -&gt; Options -&gt; session options -&gt; X/Y/Zmodem</code>，可以设置文件的默认上传和下载目录。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell-Linux/">Shell.Linux</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
       
       <div class="clearfix"></div>
     </div>
