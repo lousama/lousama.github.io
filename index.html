@@ -216,7 +216,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-__u6982_u62EC"><a href="#1-__u6982_u62EC" class="headerlink" title="1. 概括"></a><strong> 1. 概括 </strong></h2><p>每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。<br>Spark一个重要的抽象模型是<strong>RDD(resilient distributed dataset)</strong>，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过<strong>transformation(RDD的一个基本操作之一，后面会讲到)</strong>得来。用户也可以把一个RDD持久化到内存中，可以在并行操作中更高效的复用。还有非常重要的一点，RDDs出现节点故障时可以自动恢复。</p>
+        <h1 id="1-__u6982_u62EC"><a href="#1-__u6982_u62EC" class="headerlink" title="1. 概括"></a><strong> 1. 概括 </strong></h1><p>每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。<br>Spark一个重要的抽象模型是<strong>RDD(resilient distributed dataset)</strong>，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过<strong>transformation(RDD的一个基本操作之一，后面会讲到)</strong>得来。用户也可以把一个RDD持久化到内存中，可以在并行操作中更高效的复用。还有非常重要的一点，RDDs出现节点故障时可以自动恢复。</p>
 <p>Spark另一个抽象概念是可以在并行操作中共享变量，默认Spark在不同节点的任务集并行执行一个方法的时候，它会复制每一个变量到每一个任务中，有时变量需要跨任务共享。</p>
 <p>Spark支持两种共享变量模式：</p>
 <blockquote>
@@ -231,7 +231,7 @@
 </li>
 </ul>
 </blockquote>
-<h2 id="2-__u5B89_u88C5"><a href="#2-__u5B89_u88C5" class="headerlink" title="2. 安装"></a><strong> 2. 安装 </strong></h2>
+<h1 id="2-__u5B89_u88C5"><a href="#2-__u5B89_u88C5" class="headerlink" title="2. 安装"></a><strong> 2. 安装 </strong></h1>
       
     </div>
     
@@ -293,7 +293,7 @@
       
         <p><strong> Apache Spark是一个效率极高的大数据处理引擎 </strong></p>
 <hr>
-<h2 id="1-__u5404_u79CD_u5FEB"><a href="#1-__u5404_u79CD_u5FEB" class="headerlink" title="1. 各种快"></a><strong> 1. 各种快 </strong></h2><h3 id="u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D"><a href="#u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D" class="headerlink" title="在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍"></a>在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍</h3><p>Spark使用先进的<strong><a href="/#">DAG</a>(Directed Acyclic Graph)</strong>执行引擎并且支持循环数据流和内存计算。  </p>
+<h1 id="1-__u5404_u79CD_u5FEB"><a href="#1-__u5404_u79CD_u5FEB" class="headerlink" title="1. 各种快"></a><strong> 1. 各种快 </strong></h1><h2 id="u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D"><a href="#u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D" class="headerlink" title="在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍"></a>在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍</h2><p>Spark使用先进的<strong><a href="/#">DAG</a>(Directed Acyclic Graph)</strong>执行引擎并且支持循环数据流和内存计算。  </p>
 <p>引用官网的一张图：</p>
 <p><img src="/img/blog/spark/logistic-regression.png" alt="Logistic regression in Hadoop and Spark"></p>
       
@@ -497,7 +497,7 @@
       
         <p><strong> 一个程序猿遇到个问题，他决定用多线程解决，现在他有题了个问两。</strong></p>
 <hr>
-<h2 id="1-__u7ECF_u8FC7"><a href="#1-__u7ECF_u8FC7" class="headerlink" title="1. 经过"></a>1. 经过</h2><p>上周六刚熬夜上线新feature，次日本来要美美的睡一觉，不到9点就被客服在微信群炸醒，用户又领不到优惠券了!（什么啊你你你说清楚，为什么是<strong>又</strong>呢）。</p>
+<h1 id="1-__u7ECF_u8FC7"><a href="#1-__u7ECF_u8FC7" class="headerlink" title="1. 经过"></a>1. 经过</h1><p>上周六刚熬夜上线新feature，次日本来要美美的睡一觉，不到9点就被客服在微信群炸醒，用户又领不到优惠券了!（什么啊你你你说清楚，为什么是<strong>又</strong>呢）。</p>
 <p>这是总部app调我们web的http接口，用户在app中抽取优惠券，然后调用我们接口后给账户充值优惠券并返回结果。用户在app点查看会跳转到我们提供的一个显示页面。</p>
 <p>那边开发说接口404了。<br>我艰难的爬起床，登陆服务器查看，日志一切正常啊！又post个请求过去，一切OK啊！<br>然后截上图问对面，你看，我连正常啊！<br>对面静默了一会儿，“你们接口是https？”</p>
 <p>我。。。<br>
@@ -566,13 +566,13 @@
       
         <p>最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。<br>不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。<br>后来捣鼓了半天，终于搞定了免密码登陆服务器。<br>其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。</p>
 <ul>
-<li><h3 id="1-__u672C_u5730_u751F_u6210_u5BC6_u94A5"><a href="#1-__u672C_u5730_u751F_u6210_u5BC6_u94A5" class="headerlink" title="1. 本地生成密钥"></a>1. 本地生成密钥</h3></li>
+<li><h2 id="1-__u672C_u5730_u751F_u6210_u5BC6_u94A5"><a href="#1-__u672C_u5730_u751F_u6210_u5BC6_u94A5" class="headerlink" title="1. 本地生成密钥"></a>1. 本地生成密钥</h2></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
 <p>然后就会看到.ssh目录下生成的私钥和公钥</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.ssh  </span><br><span class="line">    id_rsa  //私钥 </span><br><span class="line">    id_rsa.pub    //公钥</span><br></pre></td></tr></table></figure>
 <ul>
-<li><h3 id="2-__u914D_u7F6Essh_config"><a href="#2-__u914D_u7F6Essh_config" class="headerlink" title="2. 配置ssh config"></a>2. 配置ssh config</h3>
+<li><h2 id="2-__u914D_u7F6Essh_config"><a href="#2-__u914D_u7F6Essh_config" class="headerlink" title="2. 配置ssh config"></a>2. 配置ssh config</h2>
       
     </div>
     

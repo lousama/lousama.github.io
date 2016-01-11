@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://lousama.com/2016/01/11/Spark入门篇/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="1. 概括 每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个">
-<meta property="og:updated_time" content="2016-01-11T04:11:56.000Z">
+<meta property="og:updated_time" content="2016-01-11T07:43:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习笔记之入门篇">
 <meta name="twitter:description" content="1. 概括 每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个">
@@ -230,7 +230,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-__u6982_u62EC"><a href="#1-__u6982_u62EC" class="headerlink" title="1. 概括"></a><strong> 1. 概括 </strong></h2><p>每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。<br>Spark一个重要的抽象模型是<strong>RDD(resilient distributed dataset)</strong>，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过<strong>transformation(RDD的一个基本操作之一，后面会讲到)</strong>得来。用户也可以把一个RDD持久化到内存中，可以在并行操作中更高效的复用。还有非常重要的一点，RDDs出现节点故障时可以自动恢复。</p>
+        <h1 id="1-__u6982_u62EC"><a href="#1-__u6982_u62EC" class="headerlink" title="1. 概括"></a><strong> 1. 概括 </strong></h1><p>每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。<br>Spark一个重要的抽象模型是<strong>RDD(resilient distributed dataset)</strong>，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过<strong>transformation(RDD的一个基本操作之一，后面会讲到)</strong>得来。用户也可以把一个RDD持久化到内存中，可以在并行操作中更高效的复用。还有非常重要的一点，RDDs出现节点故障时可以自动恢复。</p>
 <p>Spark另一个抽象概念是可以在并行操作中共享变量，默认Spark在不同节点的任务集并行执行一个方法的时候，它会复制每一个变量到每一个任务中，有时变量需要跨任务共享。</p>
 <p>Spark支持两种共享变量模式：</p>
 <blockquote>
@@ -245,7 +245,7 @@
 </li>
 </ul>
 </blockquote>
-<h2 id="2-__u5B89_u88C5"><a href="#2-__u5B89_u88C5" class="headerlink" title="2. 安装"></a><strong> 2. 安装 </strong></h2>
+<h1 id="2-__u5B89_u88C5"><a href="#2-__u5B89_u88C5" class="headerlink" title="2. 安装"></a><strong> 2. 安装 </strong></h1>
       
     </div>
     
