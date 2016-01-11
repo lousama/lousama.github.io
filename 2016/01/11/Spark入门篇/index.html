@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://lousama.com/2016/01/11/Spark入门篇/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="1. 概括每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个基">
-<meta property="og:updated_time" content="2016-01-11T09:45:28.000Z">
+<meta property="og:updated_time" content="2016-01-11T12:28:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习笔记之入门篇">
 <meta name="twitter:description" content="1. 概括每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个基">
@@ -263,6 +263,25 @@
 <p>然后启动日志里会有这么一句：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SparkUI: Started SparkUI at http://<span class="number">172.18</span>.<span class="number">1.101</span>:<span class="number">4040</span></span><br></pre></td></tr></table></figure></p>
 <p>在浏览器输入上述地址则可以在浏览器中查看执行的job。</p>
 <p>spark-shell启动后可以执行scala命令。</p>
+<h1 id="3-__u5F15_u5165"><a href="#3-__u5F15_u5165" class="headerlink" title="3. 引入"></a>3. 引入</h1><p>在Java中引入spark的话，可以在pom.xml中加入：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spark-core_2.10&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.6.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果你想在HDFS集群中访问的话，可以添加一个对应版本的hadoop-client的依赖：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;&lt;your-hdfs-version&gt;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Java类中需要引入的包基本如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.SparkConf;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.api.java.JavaPairRDD;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.api.java.JavaRDD;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.api.java.JavaSparkContext;</span><br></pre></td></tr></table></figure></p>
+<h1 id="4-RDD"><a href="#4-RDD" class="headerlink" title="4.RDD"></a>4.RDD</h1><p>RDDs支持两种类型的操作：</p>
+<blockquote>
+<ul>
+<li><strong> transformations: </strong><ul>
+<li>根据一个现有的RDD生成一个新的RDD   </li>
+</ul>
+</li>
+<li><strong> actions: </strong><ul>
+<li>计算返回结果</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>例如，<code>map</code>就是通过对一个数据集中每个元素执行指定的方法返回一个新的RDD作为结果。那<code>reduce</code>呢，就是对数据集中的元素通过指定的方法进行合并然后返回结果给驱动程序。</p>
+<p>所有的 <code>transformations</code> 操作都是延迟计算的，就是说不会马上计算出结果，<code>transformations</code> 只有在一个 <code>action</code> 操作需要返回结果的时候才会被计算。<br>这个设计可以让Spark有非常高的性能，例如我们能实现通过<code>map</code>生成一个RDD，用作于在<code>reduce</code>中计算，然后只把计算结果返回给驱动程序，而不是整个映射的数据集。</p>
+<p>默认的，每个转换过的RDD都有可能在执行action的时候被重新计算，所以你也可以调用<code>persist()</code>或者 <code>cache()</code>把RDD持久化到内存中。这样的话下次访问的话将会更快，Spark同样也支持持久化到磁盘，以及跨越节点复制。</p>
 
       
     </div>
