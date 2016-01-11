@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://lousama.com/2015/07/11/homebrew/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="最近入手了Mac，迫不及待的要使用传说中的神器Homebrew了，没错！就是之前传闻作者因写不出反转二叉树而被Google拒了的那个。">
-<meta property="og:updated_time" content="2016-01-11T07:43:42.000Z">
+<meta property="og:updated_time" content="2016-01-11T08:16:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="好马配好鞍，Mac OS Ⅹ 神器之Homebrew">
 <meta name="twitter:description" content="最近入手了Mac，迫不及待的要使用传说中的神器Homebrew了，没错！就是之前传闻作者因写不出反转二叉树而被Google拒了的那个。">
@@ -224,14 +224,30 @@
       
         <p>最近入手了Mac，迫不及待的要使用传说中的神器Homebrew了，没错！就是之前传闻作者因写不出反转二叉树而被Google拒了的那个。</p>
 <a id="more"></a>
-<h1 id="1-__u5B89_u88C5Homebrew"><a href="#1-__u5B89_u88C5Homebrew" class="headerlink" title="1. 安装Homebrew"></a><strong> 1. 安装Homebrew </strong></h1><h2 id="1-1__u5B89_u88C5_u9700_u6C42"><a href="#1-1__u5B89_u88C5_u9700_u6C42" class="headerlink" title="1.1 安装需求"></a>1.1 安装需求</h2><ul>
-<li>An Intel CPU[^1]</li>
-<li>OS X 10.9 or higher  – 推荐系统版本10.9以上，10.5-10.8尽力支持基础功能</li>
-<li>Command Line Tools for Xcode: xcode-select –install</li>
-<li>A Bourne-compatible shell for installation (e.g. bash or zsh)</li>
+<h1 id="1-__u5B89_u88C5Homebrew"><a href="#1-__u5B89_u88C5Homebrew" class="headerlink" title="1. 安装Homebrew"></a>1. 安装Homebrew</h1><h2 id="1-1__u5B89_u88C5_u524D"><a href="#1-1__u5B89_u88C5_u524D" class="headerlink" title="1.1 安装前"></a>1.1 安装前</h2><ul>
+<li>An Intel CPU   –基本无视</li>
+<li>OS X 10.9 or higher  –推荐系统版本10.9以上，10.5-10.8尽力支持基础功能</li>
+<li>Command Line Tools for Xcode: xcode-select –install   –很多公式需要编译</li>
+<li>A Bourne-compatible shell for installation (e.g. bash or zsh) –默认终端即可</li>
 </ul>
+<h2 id="1-2__u5B89_u88C5_u65F6"><a href="#1-2__u5B89_u88C5_u65F6" class="headerlink" title="1.2 安装时"></a>1.2 安装时</h2><p>打开终端，复制下列口令输入：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
-<p>[^1] :wushi</p>
+<h1 id="2-__u4F7F_u7528Homebrew"><a href="#2-__u4F7F_u7528Homebrew" class="headerlink" title="2. 使用Homebrew"></a>2. 使用Homebrew</h1><p>比如，我要装wget，直接输入如下口令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install wget</span><br></pre></td></tr></table></figure></p>
+<p>然后wget就会被安装在<code>/usr/local/Cellar下，</code>同时还会被软链到<code>/usr/local</code>，<code>/usr/local/Cellar</code>是brew默认的安装目录。</p>
+<p>接个常用的命令如下：</p>
+<blockquote>
+<ul>
+<li>brew install xxx  //安装xxx</li>
+<li>brew search xxx //搜索xxx，在homebrew库中搜索，有时同一个软件多个版本，可以指定版本号</li>
+<li>brew info xxx //显示本地安装xxx的详细信息，包括版本，安装路径等</li>
+<li>brew help //查看帮助</li>
+<li>brew uninstall xxx //卸载</li>
+<li>brew list //显示本地通过brew安装的列表</li>
+<li>brew update xxx //更新xxx</li>
+<li>brew cleanup xxx //卸载xxx</li>
+</ul>
+</blockquote>
+<p>PS：听说作者被谷歌拒了之后被苹果招安了，Orz。。。 </p>
 
       
     </div>
