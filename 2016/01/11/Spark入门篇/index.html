@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://lousama.com/2016/01/11/Spark入门篇/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="1. 概括每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个基">
-<meta property="og:updated_time" content="2016-01-11T17:33:27.000Z">
+<meta property="og:updated_time" content="2016-01-11T17:58:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习笔记之入门篇一">
 <meta name="twitter:description" content="1. 概括每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个基">
@@ -282,12 +282,12 @@
 <p>所有的 <code>transformations</code> 操作都是延迟计算的，就是说不会马上计算出结果，<code>transformations</code> 只有在一个 <code>action</code> 操作需要返回结果的时候才会被计算。<br>这个设计可以让Spark有非常高的性能，例如我们能实现通过<code>map</code>生成一个RDD，用作于在<code>reduce</code>中计算，然后只把计算结果返回给驱动程序，而不是整个映射的数据集。</p>
 <p>默认的，每个转换过的RDD都有可能在执行action的时候被重新计算，所以你也可以调用<code>persist()</code>或者 <code>cache()</code>把RDD持久化到内存中。这样的话下次访问的话将会更快，Spark同样也支持持久化到磁盘，以及跨越节点复制。</p>
 <h1 id="5-__u793A_u4F8B"><a href="#5-__u793A_u4F8B" class="headerlink" title="5. 示例"></a>5. 示例</h1><h2 id="5-1_sum"><a href="#5-1_sum" class="headerlink" title="5.1 sum"></a>5.1 sum</h2><p>下面将通过示例代码逐步讲解Spark如何使用以及如果操作RDD，语言为Java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf().setAppName(<span class="string">"test"</span>).setMaster(<span class="string">"local"</span>);</span><br><span class="line">JavaSparkContext sc = <span class="keyword">new</span> JavaSparkContext(conf);</span><br><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">JavaRDD&lt;Integer&gt; distData = sc.parallelize(list);</span><br><span class="line"><span class="keyword">int</span> sum = distData.reduce((a, b) -&gt; a + b);</span><br><span class="line">System.out.println(sum);</span><br></pre></td></tr></table></figure></p>
-<p>上面这段代码实现了求list里所有元素的和。<br>我们来逐条分析</p>
+<p>上面这段代码实现了求list里所有元素的和。<br>我们来逐条分析：</p>
 <ul>
 <li><strong><code>SparkConf conf = new SparkConf().setAppName(&quot;test&quot;).setMaster(&quot;local&quot;);</code></strong></li>
 <li><strong><code>JavaSparkContext sc = new JavaSparkContext(conf);</code></strong></li>
 </ul>
-<p>写一个Spark程序首先要做的是创建一个<code>JavaSparkContext</code>对象，这个对象需要加载<code>SparkConf</code>，<code>SparkConf</code>里包含了应用程序的相关信息。<br>参数<code>test</code>是展示在集群UI上的应用名称，<br>参数<code>local</code>表示程序运行在本地模式，所以，这个值还阔以是Spark,Mesos或YARN集群的URL，关于集群的配置后续集群篇中会再提到。</p>
+<p>写一个Spark程序首先要做的是创建一个<code>JavaSparkContext</code>对象，这个对象需要加载<code>SparkConf</code>，<code>SparkConf</code>里包含了应用程序的相关信息。<br>参数<code>test</code>是展示在集群UI上的应用名称。<br>参数<code>local</code>表示程序运行在本地模式，所以，这个值还阔以是Spark，Mesos或YARN集群的URL，关于集群的配置后续集群篇中会再提到。</p>
 <ul>
 <li><strong><code>JavaRDD&lt;Integer&gt; distData = sc.parallelize(list);</code></strong><br>第三行代码new一个list就不用多说了，看第四行，<code>JavaRDD</code> 就是一个Java的RDD对象。<br>Java常用的RDD对象有以下三种：<blockquote>
 <ul>
@@ -316,7 +316,20 @@
 <li><strong><code>int sum = distData.reduce((a, b) -&gt; a + b);</code></strong><br>reduce()是一个action操作，Spark 把计算分成多个任务(task)，并且让它们运行在多个机器上。每台机器都运行自己的reduce 部分。然后仅仅将结果返回。<br>上述的方法内部是一个lambda表达式，表示把两个元素相加。<br>只有JDK1.8及之上的版本才支持lambda语法，如果较低版本的话可以实现接口<code>org.apache.spark.api.java.function</code>。</li>
 </ul>
 <p>上述代码运行结果是 <code>15</code>。</p>
-<h2 id="5-2_wordCount"><a href="#5-2_wordCount" class="headerlink" title="5.2 wordCount"></a>5.2 wordCount</h2><p>下面再展示一个wordCount的例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf().setAppName(<span class="string">"wordCount"</span>).setMaster(<span class="string">"local"</span>);</span><br><span class="line">JavaSparkContext sc = <span class="keyword">new</span> JavaSparkContext(conf);</span><br><span class="line">JavaRDD&lt;String&gt; distFile = sc.textFile(<span class="string">"/Users/apple/Documents/spark"</span>);</span><br><span class="line">distFile.cache();</span><br><span class="line">JavaRDD&lt;String&gt; words = distFile.flatMap(s -&gt; Arrays.asList(s.split(<span class="string">" "</span>)));</span><br><span class="line">JavaPairRDD&lt;String,Integer&gt; results = words.mapToPair(word -&gt; <span class="keyword">new</span> Tuple2&lt;&gt;(word, <span class="number">1</span>)).reduceByKey((a, b) -&gt; a + b);</span><br><span class="line">results.collection().forEach(tuple -&gt; System.out.println(<span class="string">"flatMap"</span> + tuple._1 + <span class="string">":"</span> + tuple._2));</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-2_wordCount"><a href="#5-2_wordCount" class="headerlink" title="5.2 wordCount"></a>5.2 wordCount</h2><p>下面再展示一个wordCount的例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SparkConf conf = <span class="keyword">new</span> SparkConf().setAppName(<span class="string">"wordCount"</span>).setMaster(<span class="string">"local"</span>);</span><br><span class="line">JavaSparkContext sc = <span class="keyword">new</span> JavaSparkContext(conf);</span><br><span class="line">JavaRDD&lt;String&gt; distFile = sc.textFile(<span class="string">"/Users/apple/Documents/spark"</span>);</span><br><span class="line">JavaRDD&lt;String&gt; words = distFile.flatMap(s -&gt; Arrays.asList(s.split(<span class="string">" "</span>)));</span><br><span class="line">JavaPairRDD&lt;String,Integer&gt; results = words.mapToPair(word -&gt; <span class="keyword">new</span> Tuple2&lt;&gt;(word, <span class="number">1</span>)).reduceByKey((a, b) -&gt; a + b);</span><br><span class="line">results.collection().forEach(tuple -&gt; System.out.println(<span class="string">"flatMap"</span> + tuple._1 + <span class="string">":"</span> + tuple._2));</span><br></pre></td></tr></table></figure></p>
+<p>可以看到通过Spark实现的wordCount，要远远比Hadoop的Map Reduce实现的要简单很多，而且语法和实现都更加清晰易懂。</p>
+<p>我们从第三行开始分析：</p>
+<ul>
+<li><p><strong><code>JavaRDD&lt;String&gt; distFile = sc.textFile(&quot;/Users/apple/Documents/spark&quot;);</code></strong><br>由<code>/Users/apple/Documents/spark</code>文件创建了一个RDD对象。</p>
+</li>
+<li><p><strong><code>JavaRDD&lt;String&gt; words = distFile.flatMap(s -&gt; Arrays.asList(s.split(&quot; &quot;)));</code></strong><br>调用<code>flatMap</code>方法通过执行指定的计算把RDD进行transformations操作。<br>这个指定的计算在上述代码里具体指的就是把每一行的字符串以空格切分返回字符串数组。</p>
+</li>
+<li><p><strong><code>JavaPairRDD&lt;String,Integer&gt; results = words.mapToPair(word -&gt; new Tuple2&lt;&gt;(word, 1)).reduceByKey((a, b) -&gt; a + b);</code></strong><br>这里连续进行了两次操作，显示调用<code>mapToPair</code>方法记录K-V，每个单词出现一次就记一次。<br>然后再调用<code>reduceByKey</code>方法把相同K的记录进行合并。</p>
+</li>
+<li><p><strong><code>results.collection().forEach(tuple -&gt; System.out.println(&quot;flatMap&quot; + tuple._1 + &quot;:&quot; + tuple._2));</code></strong><br><code>rdd.collect().foreach(println)</code>可以把RDD的元素打印出来，但官方文档提到调用<code>collect()</code>可能会造成OOM(out of memory)，因为这个方法会把整个集群分布的RDD都取到一个物理机上，如果需要打印一些元素，可以调用<code>rdd.take(100).foreach(println)来看效果</code>。</p>
+</li>
+</ul>
+<p>下章将会更深入的学习Spark。</p>
 
       
     </div>
