@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://lousama.com/2015/04/01/servlet-exception/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="console输出：">
-<meta property="og:updated_time" content="2016-01-11T17:35:32.000Z">
+<meta property="og:updated_time" content="2016-01-11T17:36:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="getOutputStream() has already been called for this response] with root cause">
 <meta name="twitter:description" content="console输出：">
@@ -234,7 +234,6 @@
 <hr>
 <p><code>getOutputStream() has already been called for this response</code>这个问题今天又遇到了。<br>起因是写一个http服务，在index.jsp里面直接调用了server(request,response)。<br>具体的原因：jsp编译成servlet之后在函数<br><code>_jspService(HttpServletRequest request, HttpServletResponse response)</code>的最后有一段如下代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">finally</span> &#123;    </span><br><span class="line">      <span class="keyword">if</span> (_jspxFactory != <span class="literal">null</span>)     </span><br><span class="line">          _jspxFactory.releasePageContext(_jspx_page_context);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<!-- more -->
 <p>这里是在释放在jsp中使用的对象，会调用response.getWriter(),因为这个方法是和response.getOutputStream()相冲突的！所以会出现以上这个异常。 </p>
 <p>要解决只需要在index.jsp调用server(request,response) 加上如下代码即可</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">out.clear();   </span><br><span class="line">out=pageContext.pushBody();</span><br></pre></td></tr></table></figure>
