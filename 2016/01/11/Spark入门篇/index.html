@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://lousama.com/2016/01/11/Spark入门篇/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="1. 概括每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个基">
-<meta property="og:updated_time" content="2016-01-11T07:52:04.000Z">
+<meta property="og:updated_time" content="2016-01-11T09:45:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习笔记之入门篇">
 <meta name="twitter:description" content="1. 概括每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。Spark一个重要的抽象模型是RDD(resilient distributed dataset)，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过transformation(RDD的一个基">
@@ -245,7 +245,25 @@
 </li>
 </ul>
 </blockquote>
-<h1 id="2-__u5B89_u88C5"><a href="#2-__u5B89_u88C5" class="headerlink" title="2. 安装"></a>2. 安装</h1>
+<h1 id="2-__u5B89_u88C5"><a href="#2-__u5B89_u88C5" class="headerlink" title="2. 安装"></a>2. 安装</h1><p>这里的安装只说一下Linux和Mac OS X系统下的安装。</p>
+<h2 id="2-1_OS_X"><a href="#2-1_OS_X" class="headerlink" title="2.1 OS X"></a>2.1 OS X</h2><p>OS X就简单了，直接homebrew无脑安装，什么？你还不知道homebrew？ <a href="/2015/07/11/homebrew/">点我安装</a></p>
+<h3 id="2-1-1__u5B89_u88C5scala"><a href="#2-1-1__u5B89_u88C5scala" class="headerlink" title="2.1.1 安装scala"></a>2.1.1 安装scala</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install scala</span><br></pre></td></tr></table></figure>
+<h3 id="2-1-2__u5B89_u88C5git"><a href="#2-1-2__u5B89_u88C5git" class="headerlink" title="2.1.2 安装git"></a>2.1.2 安装git</h3><p>因为pgg自带git，所以这一步就不需要啦</p>
+<h3 id="2-1-3__u5B89_u88C5spark"><a href="#2-1-3__u5B89_u88C5spark" class="headerlink" title="2.1.3 安装spark"></a>2.1.3 安装spark</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install spark</span><br></pre></td></tr></table></figure>
+<p>呵呵，so easy?</p>
+<h2 id="2-2_Linux"><a href="#2-2_Linux" class="headerlink" title="2.2 Linux"></a>2.2 Linux</h2><p>Linux安装的话，也一次是上述步骤</p>
+<h3 id="2-2-1__u5B89_u88C5scala"><a href="#2-2-1__u5B89_u88C5scala" class="headerlink" title="2.2.1 安装scala"></a>2.2.1 安装scala</h3><p>到<a href="http://www.scala-lang.org/old/node/165" target="_blank" rel="external">官网</a>下载最新的版本，解压后放在本地<code>/opt</code>下。<br>在<code>/etc/profile</code>里添加：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> SCALA_HOME=/opt/scala-<span class="number">2.9</span>.<span class="number">1</span>.final</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$SCALA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-2__u5B89_u88C5git"><a href="#2-2-2__u5B89_u88C5git" class="headerlink" title="2.2.2 安装git"></a>2.2.2 安装git</h3><p>到<a href="http://git-scm.com/download/linux" target="_blank" rel="external">官网</a> 查看不同版本Linux下git的安装，使用默认配置。</p>
+<h3 id="2-1-3__u5B89_u88C5spark-1"><a href="#2-1-3__u5B89_u88C5spark-1" class="headerlink" title="2.1.3 安装spark"></a>2.1.3 安装spark</h3><p>下载最新源码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://github.com/mesos/spark.git</span><br></pre></td></tr></table></figure></p>
+<p>得到目录spark后，进入spark目录，进入conf子目录，将 spark-env.sh-template 重命名为spark-env.sh，并添加以下代码行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> SCALA_HOME=/opt/scala-<span class="number">2.9</span>.<span class="number">1</span>.final</span><br></pre></td></tr></table></figure></p>
+<p>回到spark目录，开始编译，运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sbt/sbt update compile</span><br></pre></td></tr></table></figure></p>
+<p>这条命令会联网下载很多jar，然后会对spark进行编译，编译完成会提示success</p>
+<p>Spark自带了一些例子程序，在<code>examples/src/main</code>目录，OS X是<code>libexec/examples/src/main</code>，在要运行的话可以在Spark根目录执行<code>bin/run-example &lt;class&gt; [params]</code>口令，例如计算pi值<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/run-example SparkPi <span class="number">10</span></span><br></pre></td></tr></table></figure></p>
+<p>执行下列命令可以在命令行启动交互：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/spark-shell</span><br></pre></td></tr></table></figure></p>
+<p>然后启动日志里会有这么一句：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SparkUI: Started SparkUI at http://<span class="number">172.18</span>.<span class="number">1.101</span>:<span class="number">4040</span></span><br></pre></td></tr></table></figure></p>
+<p>在浏览器输入上述地址则可以在浏览器中查看执行的job。</p>
+<p>spark-shell启动后可以执行scala命令。</p>
+
       
     </div>
     

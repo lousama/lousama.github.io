@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://lousama.com/2015/07/11/homebrew/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="最近入手了Mac，迫不及待的要使用传说中的神器Homebrew了，没错！就是之前传闻作者因写不出反转二叉树而被Google拒了的那个。">
-<meta property="og:updated_time" content="2016-01-11T08:17:45.000Z">
+<meta property="og:updated_time" content="2016-01-11T08:36:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="好马配好鞍，Mac OS Ⅹ 神器之Homebrew">
 <meta name="twitter:description" content="最近入手了Mac，迫不及待的要使用传说中的神器Homebrew了，没错！就是之前传闻作者因写不出反转二叉树而被Google拒了的那个。">
@@ -236,6 +236,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
 <h1 id="2-__u4F7F_u7528Homebrew"><a href="#2-__u4F7F_u7528Homebrew" class="headerlink" title="2. 使用Homebrew"></a>2. 使用Homebrew</h1><p>比如，我要装wget，直接输入如下口令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install wget</span><br></pre></td></tr></table></figure></p>
 <p>然后wget就会被安装在<code>/usr/local/Cellar下，</code>同时还会被软链到<code>/usr/local</code>，<code>/usr/local/Cellar</code>是brew默认的安装目录。</p>
+<p><strong> Homebrew还有一大优势在于，它会自动安装目标软件需要的所有依赖！而你，只需要install你想要安装的软件即可！</strong></p>
 <p>接个常用的命令如下：</p>
 <blockquote>
 <ul>
