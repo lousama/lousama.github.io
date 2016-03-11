@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://lousama.com/2016/01/20/jdk命令行工具详解/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
-<meta property="og:updated_time" content="2016-03-11T03:09:51.000Z">
+<meta property="og:updated_time" content="2016-03-11T05:24:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM调优之前戏----JDK命令行工具">
 <meta name="twitter:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
@@ -233,12 +233,107 @@
         <p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
 <a id="more"></a>
 <hr>
-<h1 id="1-jps"><a href="#1-jps" class="headerlink" title="1.jps"></a>1.jps</h1><p>jps是最常用也是最基本的命令，该命令主要用于输出JVM进程状况，例子如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ jps <span class="operator">-l</span></span><br><span class="line"><span class="number">44577</span> sun.tools.jps.Jps</span><br><span class="line"><span class="number">42947</span> org.apache.catalina.startup.Bootstrap</span><br><span class="line"><span class="number">44539</span> org.jetbrains.jps.cmdline.Launcher</span><br></pre></td></tr></table></figure>
-<h2 id="jps_28JVM_Process_Status_29"><a href="#jps_28JVM_Process_Status_29" class="headerlink" title="jps(JVM Process Status)"></a>jps(JVM Process Status)</h2><p>有点类似UNIX中的ps命令，可以列出正在运行的虚拟机进程，同时还可以显示出虚拟机运行主类(即main()所在的类)名称以及进程在本机的虚拟机ID–LVMID(Local Virtual Machine Identifier)，功能很简单，但却是使用频率最高的命令行，因为后续的命令都要依据这个命令查出来的LVMID来进行操作。</p>
-<h2 id="jps_u547D_u4EE4_u683C_u5F0F"><a href="#jps_u547D_u4EE4_u683C_u5F0F" class="headerlink" title="jps命令格式"></a>jps命令格式</h2><pre><code>jps [option]
-</code></pre><p>option参数及说明如下：</p>
-<p><table class="table table-bordered table-striped table-condensed"><br>    <tr><br>       <td>名称</td><br>       <td>功能</td><br>    </tr><br>    <tr><br>       <td>-q</td><br>       <td>只输出LVMID</td><br>    </tr><br>    <tr><br>       <td>-m</td><br>       <td>输出JVM启动时传递给main()的参数</td><br>    </tr><br>    <tr><br>       <td>-l</td><br>       <td>输出主类全名或jar路径</td><br>    </tr><br>    <tr><br>       <td>-v</td><br>       <td>输出JVM启动时的JVM参数</td><br>    </tr><br></table><br>其中option参数也可以不写。</p>
+<h1 id="1-jps"><a href="#1-jps" class="headerlink" title="1.jps"></a><strong> 1.jps </strong></h1><p>jps是最常用也是最基本的命令，该命令主要用于输出JVM进程状况，例子如下：</p>
+<p>jps(JVM Process Status)<br>有点类似UNIX中的ps命令，可以列出正在运行的虚拟机进程，同时还可以显示出虚拟机运行主类(即main()所在的类)名称以及进程在本机的虚拟机ID–LVMID(Local Virtual Machine Identifier)，功能很简单，但却是使用频率最高的命令行，因为后续的命令都要依据这个命令查出来的LVMID来进行操作。</p>
+<h2 id="1-1_jps_u547D_u4EE4_u683C_u5F0F"><a href="#1-1_jps_u547D_u4EE4_u683C_u5F0F" class="headerlink" title="1.1 jps命令格式"></a><strong> 1.1 jps命令格式 </strong></h2><pre><code>jps [option]
+</code></pre><h2 id="1-2_option_u53C2_u6570_u53CA_u8BF4_u660E"><a href="#1-2_option_u53C2_u6570_u53CA_u8BF4_u660E" class="headerlink" title="1.2 option参数及说明"></a><strong> 1.2 option参数及说明 </strong></h2><blockquote>
+<ul>
+<li><strong> -l </strong> :  输出主类全名或jar路径</li>
+<li><strong> -q </strong> :  只输出LVMID</li>
+<li><strong> -m </strong> :  输出JVM启动时传递给main()的参数</li>
+<li><strong> -v </strong> :  输出JVM启动时显示指定的JVM参数</li>
+</ul>
+</blockquote>
+<p>其中[option]参数也可以不写。</p>
+<h2 id="1-3__u793A_u4F8B"><a href="#1-3__u793A_u4F8B" class="headerlink" title="1.3 示例"></a><strong> 1.3 示例 </strong></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ jps <span class="operator">-l</span></span><br><span class="line"><span class="number">44577</span> sun.tools.jps.Jps</span><br><span class="line"><span class="number">45995</span> org.apache.catalina.startup.Bootstrap</span><br><span class="line"><span class="number">44539</span> org.jetbrains.jps.cmdline.Launcher</span><br></pre></td></tr></table></figure>
+<h1 id="2-jstat"><a href="#2-jstat" class="headerlink" title="2.jstat"></a><strong> 2.jstat </strong></h1><p>jstat(JVM statistics Monitoring)是用于监视虚拟机运行时状态信息的命令，它可以显示出虚拟机进程中的类装载、内存、垃圾收集、JIT编译等运行数据。</p>
+<h2 id="2-1__u683C_u5F0F"><a href="#2-1__u683C_u5F0F" class="headerlink" title="2.1 格式"></a><strong> 2.1 格式 </strong></h2><pre><code>jstat [option] LVMID [interval] [count]
+</code></pre><h2 id="2-2__u53C2_u6570_u8BE6_u89E3"><a href="#2-2__u53C2_u6570_u8BE6_u89E3" class="headerlink" title="2.2 参数详解"></a><strong> 2.2 参数详解 </strong></h2><blockquote>
+<ul>
+<li><strong> [option] </strong> :  操作参数</li>
+<li><strong> LVMID </strong> :  本地虚拟机进程ID</li>
+<li><strong> [interval] </strong> :  连续输出的时间间隔</li>
+<li><strong> [count] </strong> :  连续输出的次数</li>
+</ul>
+</blockquote>
+<h2 id="2-3__u793A_u4F8B_u8BE6_u89E3"><a href="#2-3__u793A_u4F8B_u8BE6_u89E3" class="headerlink" title="2.3 示例详解"></a><strong> 2.3 示例详解 </strong></h2><p>主要针对常用的[option]参数</p>
+<h3 id="2-3-1_-class"><a href="#2-3-1_-class" class="headerlink" title="2.3.1 -class"></a>2.3.1 -class</h3><p>监视类装载、卸载数量、总空间以及耗费的时间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ jstat -class <span class="number">45995</span></span><br><span class="line">Loaded      Bytes       Unloaded        Bytes       Time</span><br><span class="line"><span class="number">4761</span>        <span class="number">9160.2</span>          <span class="number">0</span>            <span class="number">0.0</span>        <span class="number">1.61</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><strong> Loaded </strong> :  加载class的数量</li>
+<li><strong> Bytes </strong> :  class字节大小</li>
+<li><strong> Unloaded </strong> :  未加载class的数量</li>
+<li><strong> Bytes </strong> :  未加载class的字节大小</li>
+<li><strong> Time </strong> :  加载时间</li>
+</ul>
+</blockquote>
+<h3 id="2-3-2_-gc"><a href="#2-3-2_-gc" class="headerlink" title="2.3.2 -gc"></a>2.3.2 -gc</h3><p>监视Java堆以及GC的状况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ jstat -gc <span class="number">45995</span></span><br><span class="line">S0C     S1C  S0U S1U   EC     EU    OC     OU    MC   MU   CCSC  CCSU   YGC   YGCT   FGC   FGCT   GCT</span><br><span class="line"><span class="number">56832</span>  <span class="number">57344</span>  <span class="number">0</span>   <span class="number">0</span>  <span class="number">513536</span> <span class="number">234200</span> <span class="number">148480</span> <span class="number">45196</span> <span class="number">21248</span> <span class="number">20661</span> <span class="number">2560</span> <span class="number">2331</span>    <span class="number">8</span>    <span class="number">0.188</span>   <span class="number">1</span>    <span class="number">0.044</span> <span class="number">0.232</span></span><br></pre></td></tr></table></figure>
+<p><strong> C即Capacity 总容量，U即Used 已使用的容量 </strong></p>
+<blockquote>
+<ul>
+<li><strong> S0C </strong> :  survivor0区的总容量</li>
+<li><strong> S1C </strong> :  survivor1区的总容量</li>
+<li><strong> S0U </strong> :  survivor0区已使用的容量</li>
+<li><strong> S1C </strong> :  survivor1区已使用的容量</li>
+<li><strong> EC </strong> :  Eden区的总容量</li>
+<li><strong> EU </strong> :  Eden区已使用的容量</li>
+<li><strong> OC </strong> :  Old区的总容量</li>
+<li><strong> OU </strong> :  Old区已使用的容量</li>
+<li><strong> MC </strong> :  方法区即永久代的总容量</li>
+<li><strong> MU </strong> :  方法区已使用的容量</li>
+<li><strong> CCSC </strong> :  压缩类空间总容量</li>
+<li><strong> CCSU </strong> :  压缩类空间已使用的容量</li>
+<li><strong> YGC </strong> :  新生代垃圾回收次数</li>
+<li><strong> YGCT </strong> :  新生代垃圾回收时间</li>
+<li><strong> FGC </strong> :  老年代垃圾回收次数</li>
+<li><strong> FGCT </strong> : 老年代垃圾回收时间</li>
+<li><strong> GCT </strong> :   垃圾回收总消耗时间</li>
+</ul>
+</blockquote>
+<h3 id="2-3-3_-gccapacity"><a href="#2-3-3_-gccapacity" class="headerlink" title="2.3.3 -gccapacity"></a>2.3.3 -gccapacity</h3><p>同-gc，不过还会输出Java堆各区域使用到的最大、最小空间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ jstat -gccapacity <span class="number">45995</span></span><br><span class="line">NGCMN  NGCMX   NGC  S0C  S1C   EC   OGCMN   OGCMX   OGC  OC  MCMN   MCMX  MC   CCSMN CCSMX  CCSC  YGC  FGC</span><br><span class="line"><span class="number">87040.0</span> <span class="number">1397760.0</span> <span class="number">628736.0</span> <span class="number">56832.0</span> <span class="number">57344.0</span> <span class="number">513536.0</span> <span class="number">175104.0</span> <span class="number">2796544.0</span> <span class="number">148480.0</span> <span class="number">148480.0</span> <span class="number">0.0</span> <span class="number">1069056.0</span> <span class="number">21248.0</span> <span class="number">0.0</span> <span class="number">1048576.0</span> <span class="number">2560.0</span> <span class="number">8</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>下面只列出与-gc命令有差异的项(后续同理)</p>
+<blockquote>
+<ul>
+<li><strong> NGCMN </strong> :   新生代占用的最小空间</li>
+<li><strong> NGCMX </strong> :   新生代占用的最大空间</li>
+<li><strong> OGCMN </strong> :   老年代占用的最小空间</li>
+<li><strong> OGCMX </strong> :   老年代占用的最大空间</li>
+<li><strong> MCMN </strong> :  方法区占用的最小空间</li>
+<li><strong> MCMX </strong> :  方法区占用的最大空间</li>
+<li><strong> CCSMN </strong> :  压缩类占用的最小空间</li>
+<li><strong> CCSMX </strong> :  压缩类占用的最大空间</li>
+</ul>
+</blockquote>
+<h3 id="2-3-4_-gcutil"><a href="#2-3-4_-gcutil" class="headerlink" title="2.3.4 -gcutil"></a>2.3.4 -gcutil</h3><p>同-gc，不过输出的是已使用空间占总空间的百分比</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ jstat -gcutil <span class="number">45995</span></span><br><span class="line">S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT</span><br><span class="line"><span class="number">0.00</span>   <span class="number">0.00</span>  <span class="number">55.27</span>  <span class="number">30.44</span>  <span class="number">97.24</span>  <span class="number">91.06</span>   <span class="number">8</span>      <span class="number">0.188</span>    <span class="number">1</span>     <span class="number">0.044</span>   <span class="number">0.232</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-5_-gcnew/-gcnewcapcacity"><a href="#2-3-5_-gcnew/-gcnewcapcacity" class="headerlink" title="2.3.5 -gcnew/-gcnewcapcacity"></a>2.3.5 -gcnew/-gcnewcapcacity</h3><p>监视新生代GC状况/输出最大最小空间</p>
+<h3 id="2-3-6_-gcold/-gcoldcapacity"><a href="#2-3-6_-gcold/-gcoldcapacity" class="headerlink" title="2.3.6 -gcold/-gcoldcapacity"></a>2.3.6 -gcold/-gcoldcapacity</h3><p>监视老年代GC状况/输出最大最小空间</p>
+<h3 id="2-3-7_-compiler"><a href="#2-3-7_-compiler" class="headerlink" title="2.3.7 -compiler"></a>2.3.7 -compiler</h3><p>输出JIT编译过的方法数量耗时等</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ jstat -compiler <span class="number">45995</span></span><br><span class="line">Compiled Failed Invalid   Time   FailedType FailedMethod</span><br><span class="line">    <span class="number">3795</span>      <span class="number">2</span>       <span class="number">0</span>   <span class="number">12.98</span>     <span class="number">1</span>       org/apache/catalina/loader/WebappClassLoader findResourceInternal</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><strong> Compiled </strong> :    编译数量</li>
+<li><strong> Failed </strong> :    编译失败数量</li>
+<li><strong> Invalid </strong> :    无效数量</li>
+<li><strong> Time </strong> :    编译耗时</li>
+<li><strong> FailedType </strong> :    失败类型</li>
+<li><strong> FailedMethod </strong> :    失败方法的全限定名</li>
+</ul>
+</blockquote>
+<h3 id="2-3-7_-printcompilation"><a href="#2-3-7_-printcompilation" class="headerlink" title="2.3.7 -printcompilation"></a>2.3.7 -printcompilation</h3><p>输出已被JIT编译的方法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ jstat -printcompilation <span class="number">45995</span></span><br><span class="line">Compiled  Size  Type Method</span><br><span class="line"><span class="number">3795</span>     <span class="number">382</span>    <span class="number">1</span>   org/apache/catalina/core/ContainerBase<span class="variable">$ContainerBackgroundProcessor</span> processChildren</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><strong> Compiled </strong> :    最近被JIT编译的方法数量</li>
+<li><strong> Size </strong> :    最近被JIT编译方法的字节码数量</li>
+<li><strong> Type </strong> :    最近被编译的编译类型</li>
+<li><strong> Method </strong> :    方法的去按限定名</li>
+</ul>
+</blockquote>
+<h1 id="3-_jinfo"><a href="#3-_jinfo" class="headerlink" title="3. jinfo"></a><strong> 3. jinfo </strong></h1><p>jinfo(JVM Configuration info)这个命令作用是实时查看和调整虚拟机运行参数。<br>之前的jps -v口令只能查看到显示指定的参数，如果想要查看未被显示指定的参数的值就要使用jinfo口令</p>
 
       
     </div>
@@ -273,11 +368,10 @@
 	<!-- JiaThis Button BEGIN -->
 	<div class="jiathis_style">
 		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-    <a class="jiathis_button_twitter"></a>
+		<!--<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>-->
     <a class="jiathis_button_tsina"></a>
 		<a class="jiathis_button_weixin"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathisiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
 	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
 	<!-- JiaThis Button END -->
