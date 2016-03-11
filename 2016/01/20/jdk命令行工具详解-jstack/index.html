@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>JVM调优前戏之JDK命令行工具---jstack | Lousama</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM调优前戏之JDK命令行工具---jstack">
+<meta property="og:url" content="http://lousama.com/2016/01/20/jdk命令行工具详解-jstack/index.html">
+<meta property="og:site_name" content="Lousama">
+<meta property="og:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
+<meta property="og:updated_time" content="2016-03-11T10:12:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM调优前戏之JDK命令行工具---jstack">
+<meta name="twitter:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+ 
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Lousama</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">道狭草木长，夕露沾我衣</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">Home</a></li>
+				        
+							<li><a href="/archives">Archives</a></li>
+				        
+							<li><a href="/categories/Java">Java</a></li>
+				        
+							<li><a href="/categories/Linux">Linux</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/lousama" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/lousama" title="weibo">weibo</a>
+					        
+								<a class="facebook" target="_blank" href="https://www.facebook.com/sama.lou.52" title="facebook">facebook</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/lougooo" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Homebrew/" style="font-size: 13.33px;">Homebrew</a> <a href="/tags/JVM/" style="font-size: 16.67px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MapReduce/" style="font-size: 10px;">MapReduce</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/Pgg/" style="font-size: 10px;">Pgg</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Spark/" style="font-size: 13.33px;">Spark</a> <a href="/tags/grep/" style="font-size: 10px;">grep</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/pgg/" style="font-size: 13.33px;">pgg</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/事故/" style="font-size: 10px;">事故</a> <a href="/tags/生产/" style="font-size: 10px;">生产</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/69e7d01b513e">13c mid-out Android</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.2baxb.me">axb</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.aquariuslt.com/">instigates male little A</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Lousama</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Lousama</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">道狭草木长，夕露沾我衣</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">Home</a></li>
+		        
+					<li><a href="/archives">Archives</a></li>
+		        
+					<li><a href="/categories/Java">Java</a></li>
+		        
+					<li><a href="/categories/Linux">Linux</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/lousama" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/lousama" title="weibo">weibo</a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/sama.lou.52" title="facebook">facebook</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/lougooo" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-jdk命令行工具详解-jstack" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/20/jdk命令行工具详解-jstack/" class="article-date">
+  	<time datetime="2016-01-20T02:25:15.000Z" itemprop="datePublished">2016-01-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JVM调优前戏之JDK命令行工具---jstack
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Java/">Java</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
+<a id="more"></a>
+<hr>
+<h1 id="1-_jstack"><a href="#1-_jstack" class="headerlink" title="1. jstack"></a><strong> 1. jstack </strong></h1><p>jstack(JVM Stack Trace)用于生成虚拟机当前时刻的线程快照。线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合，生成线程快照的主要目的就是定位线程出现长时间停顿的原因，如线程死锁、死循环、请求外部资源导致的长时间等待等都是导致线程长时间停顿的常见原因。线程出现停顿的时候通过jstack来查看各个线程的调用堆栈，就可以知道没有响应的线程在后台到底做了些什么事情，或者等待着什么资源。</p>
+<h2 id="1-1__u547D_u4EE4_u683C_u5F0F"><a href="#1-1__u547D_u4EE4_u683C_u5F0F" class="headerlink" title="1.1 命令格式"></a><strong> 1.1 命令格式 </strong></h2><pre><code>jstack [option] LVMID
+</code></pre><h2 id="1-2_option_u53C2_u6570"><a href="#1-2_option_u53C2_u6570" class="headerlink" title="1.2 option参数"></a><strong> 1.2 option参数 </strong></h2><blockquote>
+<ul>
+<li><strong> -F </strong> :  当正常输出请求不被响应时，强制输出线程堆栈</li>
+<li><strong> -l </strong> :  除堆栈外，显示关于锁的附加信息</li>
+<li><strong> -m </strong> :  如果调用到本地方法的话，可以显示C/C++的堆栈</li>
+</ul>
+</blockquote>
+<h2 id="1-3__u793A_u4F8B"><a href="#1-3__u793A_u4F8B" class="headerlink" title="1.3 示例"></a><strong> 1.3 示例 </strong></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">$ jstack <span class="operator">-l</span> <span class="number">45995</span></span><br><span class="line"><span class="number">2016</span>-<span class="number">01</span>-<span class="number">20</span> <span class="number">17</span>:<span class="number">34</span>:<span class="number">36</span></span><br><span class="line">Full thread dump Java HotSpot(TM) <span class="number">64</span>-Bit Server VM (<span class="number">25.45</span>-b02 mixed mode):</span><br><span class="line"></span><br><span class="line"><span class="string">"Attach Listener"</span> <span class="comment">#46 daemon prio=9 os_prio=31 tid=0x00007fc62527e800 nid=0x6b07 waiting on condition [0x0000000000000000]</span></span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line"></span><br><span class="line">   Locked ownable synchronizers:</span><br><span class="line">    - None</span><br><span class="line"></span><br><span class="line"><span class="string">"http-bio-8082-exec-10"</span> <span class="comment">#44 daemon prio=5 os_prio=31 tid=0x00007fc61f359000 nid=0x8a03 waiting on condition [0x0000700002fa3000]</span></span><br><span class="line">   java.lang.Thread.State: WAITING (parking)</span><br><span class="line">    at sun.misc.Unsafe.park(Native Method)</span><br><span class="line">    - parking to <span class="built_in">wait</span> <span class="keyword">for</span>  &lt;<span class="number">0</span>x00000006c04cdb28&gt; (a java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>)</span><br><span class="line">    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:<span class="number">175</span>)</span><br><span class="line">    at java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>.await(AbstractQueuedSynchronizer.java:<span class="number">2039</span>)</span><br><span class="line">    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:<span class="number">442</span>)</span><br><span class="line">    at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:<span class="number">104</span>)</span><br><span class="line">    at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:<span class="number">32</span>)</span><br><span class="line">    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:<span class="number">1067</span>)</span><br><span class="line">    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1127</span>)</span><br><span class="line">    at java.util.concurrent.ThreadPoolExecutor<span class="variable">$Worker</span>.run(ThreadPoolExecutor.java:<span class="number">617</span>)</span><br><span class="line">    at org.apache.tomcat.util.threads.TaskThread<span class="variable">$WrappingRunnable</span>.run(TaskThread.java:<span class="number">61</span>)</span><br><span class="line">    at java.lang.Thread.run(Thread.java:<span class="number">745</span>)</span><br><span class="line"></span><br><span class="line">   Locked ownable synchronizers:</span><br><span class="line">    - None</span><br><span class="line"></span><br><span class="line"><span class="string">"http-bio-8082-exec-9"</span> <span class="comment">#43 daemon prio=5 os_prio=31 tid=0x00007fc620475000 nid=0x8803 waiting on condition [0x0000700002ea0000]</span></span><br><span class="line">   java.lang.Thread.State: WAITING (parking)</span><br><span class="line">    at sun.misc.Unsafe.park(Native Method)</span><br><span class="line">    - parking to <span class="built_in">wait</span> <span class="keyword">for</span>  &lt;<span class="number">0</span>x00000006c04cdb28&gt; (a java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>)</span><br><span class="line">    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:<span class="number">175</span>)</span><br><span class="line">    at java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>.await(AbstractQueuedSynchronizer.java:<span class="number">2039</span>)</span><br><span class="line">    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:<span class="number">442</span>)</span><br><span class="line">    at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:<span class="number">104</span>)</span><br><span class="line">    at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:<span class="number">32</span>)</span><br><span class="line">    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:<span class="number">1067</span>)</span><br><span class="line">    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1127</span>)</span><br><span class="line">    at java.util.concurrent.ThreadPoolExecutor<span class="variable">$Worker</span>.run(ThreadPoolExecutor.java:<span class="number">617</span>)</span><br><span class="line">    at org.apache.tomcat.util.threads.TaskThread<span class="variable">$WrappingRunnable</span>.run(TaskThread.java:<span class="number">61</span>)</span><br><span class="line">    at java.lang.Thread.run(Thread.java:<span class="number">745</span>)</span><br><span class="line"></span><br><span class="line">   Locked ownable synchronizers:</span><br><span class="line">    - None</span><br><span class="line"></span><br><span class="line"><span class="string">"http-bio-8082-exec-8"</span> <span class="comment">#42 daemon prio=5 os_prio=31 tid=0x00007fc61f002000 nid=0x8603 waiting on condition [0x0000700002d9d000]</span></span><br><span class="line">   java.lang.Thread.State: WAITING (parking)</span><br><span class="line">    at sun.misc.Unsafe.park(Native Method)</span><br><span class="line">    - parking to <span class="built_in">wait</span> <span class="keyword">for</span>  &lt;<span class="number">0</span>x00000006c04cdb28&gt; (a java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>)</span><br><span class="line">    at java.util.concurrent.locks.LockSupport.park(LockSupport.java:<span class="number">175</span>)</span><br><span class="line">    at java.util.concurrent.locks.AbstractQueuedSynchronizer<span class="variable">$ConditionObject</span>.await(AbstractQueuedSynchronizer.java:<span class="number">2039</span>)</span><br><span class="line">    at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:<span class="number">442</span>)</span><br><span class="line">    at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:<span class="number">104</span>)</span><br><span class="line">    at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:<span class="number">32</span>)</span><br><span class="line">    at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:<span class="number">1067</span>)</span><br><span class="line">    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1127</span>)</span><br><span class="line">    at java.util.concurrent.ThreadPoolExecutor<span class="variable">$Worker</span>.run(ThreadPoolExecutor.java:<span class="number">617</span>)</span><br><span class="line">    at org.apache.tomcat.util.threads.TaskThread<span class="variable">$WrappingRunnable</span>.run(TaskThread.java:<span class="number">61</span>)</span><br><span class="line">    at java.lang.Thread.run(Thread.java:<span class="number">745</span>)</span><br><span class="line"></span><br><span class="line">   Locked ownable synchronizers:</span><br><span class="line">    - None</span><br><span class="line">    ......</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/20/jdk命令行工具详解-jstat/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          JVM调优前戏之JDK命令行工具---jstat
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/20/jdk命令行工具详解-jmap/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM调优前戏之JDK命令行工具---jmap</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<!--<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>-->
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_weixin"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="jdk命令行工具详解-jstack" data-title="JVM调优前戏之JDK命令行工具---jstack" data-url="http://lousama.com/2016/01/20/jdk命令行工具详解-jstack/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"lousama"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">  
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Lousama       
+    	</div>
+      
+      	<div class="footer-right">
+          Life for you,for coding
+      	</div>
+    </div>
+  </div>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72383275-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
