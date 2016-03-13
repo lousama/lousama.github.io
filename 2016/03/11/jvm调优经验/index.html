@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="在生产系统中，高吞吐和低延迟一直都是JVM调优的最终目标，但这两者恰恰又是相悖的，鱼和熊掌不可兼得，所以在调优之前要清楚舍谁而取谁。一般计算任务和组件服务会偏向高吞吐，而web展示则偏向低延迟才会带来更好的用户体验。
 本文从性能和经验上来分享一下JVM参数的设置。">
-<meta property="og:updated_time" content="2016-03-12T17:53:44.000Z">
+<meta property="og:updated_time" content="2016-03-13T15:35:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM调优之经验">
 <meta name="twitter:description" content="在生产系统中，高吞吐和低延迟一直都是JVM调优的最终目标，但这两者恰恰又是相悖的，鱼和熊掌不可兼得，所以在调优之前要清楚舍谁而取谁。一般计算任务和组件服务会偏向高吞吐，而web展示则偏向低延迟才会带来更好的用户体验。
@@ -277,7 +277,14 @@
 <p>默认是8，新生代中Eden与Survivor的比值，过大的话可能Survivor存不下临时对象而频繁触发分配担保。可以根据GC日志看实际情况。</p>
 <hr>
 <p><strong> PS： </strong><br>关于内存大小的设置完全要根据各个机器和应用自身的情况来设置。<br>可以通过<code>jstat -gc [pid] 2000 30</code>,每2s输出一次一共输出30次内存情况，看看各个区域增长的速度，最大空间等数据来修改内存设置。</p>
-<h2 id="u76D1_u63A7_u8F93_u51FA"><a href="#u76D1_u63A7_u8F93_u51FA" class="headerlink" title="监控输出"></a><strong> 监控输出 </strong></h2>
+<h2 id="u76D1_u63A7_u8F93_u51FA"><a href="#u76D1_u63A7_u8F93_u51FA" class="headerlink" title="监控输出"></a><strong> 监控输出 </strong></h2><p>监控参数还是需要的，不然有时候线上偶尔OOM了真的不好重现。</p>
+<p><strong> <code>-XX:+HeapDumpOnOutOfMemoryError</code>,<code>-XX:HeapDumpPath={path}</code> </strong></p>
+<p>OOM的时候会输出dump快照到{path}目录，只需要指向目录，文件名JVM会保持唯一性。</p>
+<p><strong> <code>-XX:+PrintGCDetails</code>,<code>-Xloggc:logs/gc.log</code>,<code>-XX:+PrintGCTimeStamps</code>,<code>-XX:+PrintGCDateStamps</code> </strong></p>
+<p>打印GC详细记录，<code>-XX:+PrintGC</code> 这个口令是简单GC日志，为了更容易定位问题，我们开启Details模式，<code>-Xloggc</code>是把gc日志输出到指定文件。<br><code>-XX:+PrintGCTimeStamps</code>显示的时间代表JVM启动至记录日志的时间。<br><code>-XX:+PrintGCDateStamps</code>则会添加上每行信息的绝对日期。<br>其实开启了<code>-Xloggc</code>的话会隐式的开启<code>-XX:+PrintGCTimeStamps</code>，不过为了防止各版本JVM改动差异，还是显示的设置出来保险。</p>
+<p><strong> <code>-XX:-OmitStackTraceInFastThrow</code> </strong></p>
+<p>这是个比较容易被忽略的参数，而没有经验的话又往往很难定位到原因。<br>JDK5之后JVM对异常做了一个优化，对于一些频繁抛出的异常，JIT重新编译后会抛出没有堆栈信息的异常，<code>-server</code>模式下是默认开启的，因此在频繁抛出某个异常一段时间后,该优化开始起作用,即只抛出没有堆栈的异常信息。<br>但由于该优化是JIT编译后才启用的，所以开始该异常的抛出是有完整堆栈信息的，但运行一段时间可能发现没有任何堆栈信息，很难定位，初次遇到很容易摸不到头脑。<br>可以使用<code>-XX:-OmitStackTraceInFastThrow</code>来关闭该项优化。</p>
+
       
     </div>
     
