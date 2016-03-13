@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="在生产系统中，高吞吐和低延迟一直都是JVM调优的最终目标，但这两者恰恰又是相悖的，鱼和熊掌不可兼得，所以在调优之前要清楚舍谁而取谁。一般计算任务和组件服务会偏向高吞吐，而web展示则偏向低延迟才会带来更好的用户体验。
 本文从性能和经验上来分享一下JVM参数的设置。">
-<meta property="og:updated_time" content="2016-03-13T15:35:49.000Z">
+<meta property="og:updated_time" content="2016-03-13T15:39:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM调优之经验">
 <meta name="twitter:description" content="在生产系统中，高吞吐和低延迟一直都是JVM调优的最终目标，但这两者恰恰又是相悖的，鱼和熊掌不可兼得，所以在调优之前要清楚舍谁而取谁。一般计算任务和组件服务会偏向高吞吐，而web展示则偏向低延迟才会带来更好的用户体验。
@@ -238,7 +238,7 @@
 <a id="more"></a>
 <h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a><strong> 前言 </strong></h1><p>调优之前可以先用-XX:+PrintFlagsFinal来查看虚拟机是否默认开启某参数，不同版本的JDK可能虚拟机默认开启的参数也略有不同，新学习一条神奇的参数的时候可以先去查找一下参数是否默认开启了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -server -XX:+PrintCommandLineFlags |grep XXXXXXX</span><br></pre></td></tr></table></figure></p>
 <p>也可以通过jinfo口令 <code>jinfo -flags [pid]</code>来查看</p>
-<h1 id="u6027_u80FD_u7BC7"><a href="#u6027_u80FD_u7BC7" class="headerlink" title="性能篇"></a><strong> 性能篇 </strong></h1><h2 id="GC_u7B56_u7565"><a href="#GC_u7B56_u7565" class="headerlink" title="GC策略"></a><strong> GC策略 </strong></h2><p><strong> 目前来看还是CMS当道，吞吐率和响应时间阔以兼顾，G1嘛，鸡丸鸡丸，至今并没有展现出one的实力，不过据贵宝某P8讲G1在大堆(20G+)下表现更突出，停顿会显著降低，可能之后随着高内存越来越经济和普及，G1才能名副其实的称为鸡one。</strong></p>
+<h1 id="GC_u7B56_u7565"><a href="#GC_u7B56_u7565" class="headerlink" title="GC策略"></a><strong> GC策略 </strong></h1><p><strong> 目前来看还是CMS当道，吞吐率和响应时间阔以兼顾，G1嘛，鸡丸鸡丸，至今并没有展现出one的实力，不过据贵宝某P8讲G1在大堆(20G+)下表现更突出，停顿会显著降低，可能之后随着高内存越来越经济和普及，G1才能名副其实的称为鸡one。</strong></p>
 <p>废话少说，</p>
 <p><strong> <code>-XX:+UseConcMarkSweepGC</code> </strong></p>
 <p>设置CMS做为垃圾收集，CMS开启后默认的新生代回收是ParNew，如果CMS出现“Concurrent Mode Failure”了还会启用Serial Old做备胎。</p>
@@ -256,7 +256,7 @@
 <p><strong> <code>-XX:+ExplicitGCInvokesConcurrent</code> </strong></p>
 <p>这个参数是用来代替，<code>-XX:DisableExplicitGC</code>的，NIO许多地方会显示的调用System.gc()来触发一次Full GC。许多时候别的地方优化一万点都赔不起这儿调上几次的。ExplicitGCInvokesConcurrent这个参数是配合CMS使用的，开启后System.gc()还是会触发Full GC，不过并不是一个完全的stop-the-world的Full GC，而是并发的CMS GC。</p>
 <hr>
-<h2 id="u5185_u5B58_u8BBE_u7F6E"><a href="#u5185_u5B58_u8BBE_u7F6E" class="headerlink" title="内存设置"></a><strong> 内存设置 </strong></h2><p><strong> 现在线上业务系统基本物理内存都是够用的，不过物尽其用，我们调优就是争取让每M空间都发挥出最大的作用。内存的设置还是最直观见效的。</strong></p>
+<h1 id="u5185_u5B58_u8BBE_u7F6E"><a href="#u5185_u5B58_u8BBE_u7F6E" class="headerlink" title="内存设置"></a><strong> 内存设置 </strong></h1><p><strong> 现在线上业务系统基本物理内存都是够用的，不过物尽其用，我们调优就是争取让每M空间都发挥出最大的作用。内存的设置还是最直观见效的。</strong></p>
 <p><strong> <code>-Xmx500m</code> ,<code>-Xms500m</code></strong></p>
 <p>最大堆内存和最小堆内存，这两个值要设的一致，避免虚拟机还要动态的计算分配内存空间。<br>PS：堆也不是越大越好，大堆带来的后果就是单次GC会较长。</p>
 <hr>
@@ -277,7 +277,7 @@
 <p>默认是8，新生代中Eden与Survivor的比值，过大的话可能Survivor存不下临时对象而频繁触发分配担保。可以根据GC日志看实际情况。</p>
 <hr>
 <p><strong> PS： </strong><br>关于内存大小的设置完全要根据各个机器和应用自身的情况来设置。<br>可以通过<code>jstat -gc [pid] 2000 30</code>,每2s输出一次一共输出30次内存情况，看看各个区域增长的速度，最大空间等数据来修改内存设置。</p>
-<h2 id="u76D1_u63A7_u8F93_u51FA"><a href="#u76D1_u63A7_u8F93_u51FA" class="headerlink" title="监控输出"></a><strong> 监控输出 </strong></h2><p>监控参数还是需要的，不然有时候线上偶尔OOM了真的不好重现。</p>
+<h1 id="u76D1_u63A7_u8F93_u51FA"><a href="#u76D1_u63A7_u8F93_u51FA" class="headerlink" title="监控输出"></a><strong> 监控输出 </strong></h1><p>监控参数还是需要的，不然有时候线上偶尔OOM了真的不好重现。</p>
 <p><strong> <code>-XX:+HeapDumpOnOutOfMemoryError</code>,<code>-XX:HeapDumpPath={path}</code> </strong></p>
 <p>OOM的时候会输出dump快照到{path}目录，只需要指向目录，文件名JVM会保持唯一性。</p>
 <p><strong> <code>-XX:+PrintGCDetails</code>,<code>-Xloggc:logs/gc.log</code>,<code>-XX:+PrintGCTimeStamps</code>,<code>-XX:+PrintGCDateStamps</code> </strong></p>
