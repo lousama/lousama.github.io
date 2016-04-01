@@ -187,6 +187,15 @@
 
     
     
+      
+      
+        
+        
+        
+      
+
+      
+    
 
     
       
@@ -1031,7 +1040,7 @@
 
       
         
-          <h1 id="1-__u6982_u62EC"><a href="#1-__u6982_u62EC" class="headerlink" title="1. 概括"></a>1. 概括</h1><p>每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。<br>Spark一个重要的抽象模型是<strong>RDD(resilient distributed dataset)</strong>，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过<strong>transformation(RDD的一个基本操作之一，后面会讲到)</strong>得来。用户也可以把一个RDD持久化到内存中，可以在并行操作中更高效的复用。还有非常重要的一点，RDDs出现节点故障时可以自动恢复。<br>
+          <h1 id="u6982_u62EC"><a href="#u6982_u62EC" class="headerlink" title="概括"></a>概括</h1><p>每个Spark程序都包括一个主驱动程序和在集群上执行的并行操作。<br>Spark一个重要的抽象模型是<strong>RDD(resilient distributed dataset)</strong>，中文翻译呢，就是弹性分布式数据集，弹性呢，指的其实是可以在集群中跨节点和分区。RDDs的创建呢，可以通过一个本地文件，或者HDFS，或者一个现有的Scala集合，甚至其他的RDD通过<strong>transformation(RDD的一个基本操作之一，后面会讲到)</strong>得来。用户也可以把一个RDD持久化到内存中，可以在并行操作中更高效的复用。还有非常重要的一点，RDDs出现节点故障时可以自动恢复。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/01/11/Spark入门篇/#more" rel="contents">
               Read more &raquo;
@@ -1129,7 +1138,7 @@
         
           <p><strong> Apache Spark是一个效率极高的大数据处理引擎 </strong></p>
 <hr>
-<h1 id="1-__u5404_u79CD_u5FEB"><a href="#1-__u5404_u79CD_u5FEB" class="headerlink" title="1. 各种快"></a><strong> 1. 各种快 </strong></h1><h2 id="u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D"><a href="#u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D" class="headerlink" title="在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍"></a>在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍</h2><p>Spark使用先进的<strong><a href="/#">DAG</a>(Directed Acyclic Graph)</strong>执行引擎并且支持循环数据流和内存计算。  </p>
+<h1 id="u5404_u79CD_u5FEB"><a href="#u5404_u79CD_u5FEB" class="headerlink" title="各种快"></a><strong> 各种快 </strong></h1><h2 id="u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D"><a href="#u5728_u5185_u5B58_u4E2D_u8FD0_u884C_u7A0B_u5E8F_u6BD4Hadoop_MapReduce_u5FEB100_u500D_uFF0C_u5728_u78C1_u76D8_u4E2D_u5FEB10_u500D" class="headerlink" title="在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍"></a>在内存中运行程序比Hadoop MapReduce快100倍，在磁盘中快10倍</h2><p>Spark使用先进的<strong><a href="/#">DAG</a>(Directed Acyclic Graph)</strong>执行引擎并且支持循环数据流和内存计算。  </p>
 <p>引用官网的一张图：</p>
 <p><img src="/images/blog/spark/logistic-regression.png" alt="Logistic regression in Hadoop and Spark"></p>
           <div class="post-more-link text-center">

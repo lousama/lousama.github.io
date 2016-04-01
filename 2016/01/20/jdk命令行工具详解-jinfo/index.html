@@ -57,7 +57,7 @@
 <meta property="og:url" content="http://lousama.com/2016/01/20/jdk命令行工具详解-jinfo/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
-<meta property="og:updated_time" content="2016-03-11T10:08:26.000Z">
+<meta property="og:updated_time" content="2016-04-01T16:10:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM调优前戏之JDK命令行工具---jinfo">
 <meta name="twitter:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
@@ -253,16 +253,16 @@
         <span itemprop="articleBody"><p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
 <a id="more"></a>
 <hr>
-<h1 id="1-_jinfo"><a href="#1-_jinfo" class="headerlink" title="1. jinfo"></a><strong> 1. jinfo </strong></h1><p>jinfo(JVM Configuration info)这个命令作用是实时查看和调整虚拟机运行参数。<br>之前的jps -v口令只能查看到显示指定的参数，如果想要查看未被显示指定的参数的值就要使用jinfo口令</p>
-<h2 id="1-1__u547D_u4EE4_u683C_u5F0F"><a href="#1-1__u547D_u4EE4_u683C_u5F0F" class="headerlink" title="1.1 命令格式"></a><strong> 1.1 命令格式 </strong></h2><pre><code>jinfo [option] [args] LVMID
-</code></pre><h2 id="1-2_option_u53C2_u6570"><a href="#1-2_option_u53C2_u6570" class="headerlink" title="1.2 option参数"></a><strong> 1.2 option参数 </strong></h2><blockquote>
+<h1 id="jinfo"><a href="#jinfo" class="headerlink" title="jinfo"></a><strong> jinfo </strong></h1><p>jinfo(JVM Configuration info)这个命令作用是实时查看和调整虚拟机运行参数。<br>之前的jps -v口令只能查看到显示指定的参数，如果想要查看未被显示指定的参数的值就要使用jinfo口令</p>
+<h2 id="u547D_u4EE4_u683C_u5F0F"><a href="#u547D_u4EE4_u683C_u5F0F" class="headerlink" title="命令格式"></a><strong> 命令格式 </strong></h2><pre><code>jinfo [option] [args] LVMID
+</code></pre><h2 id="option_u53C2_u6570"><a href="#option_u53C2_u6570" class="headerlink" title="option参数"></a><strong> option参数 </strong></h2><blockquote>
 <ul>
 <li><strong> -flag </strong>:    输出指定args参数的值</li>
 <li><strong> -flags </strong>:   不需要args参数，输出所有JVM参数的值</li>
 <li><strong> -sysprops </strong>:    输出系统属性，等同于System.getProperties()</li>
 </ul>
 </blockquote>
-<h2 id="1-3__u793A_u4F8B"><a href="#1-3__u793A_u4F8B" class="headerlink" title="1.3 示例"></a><strong> 1.3 示例 </strong></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ jinfo -flag CMSInitiatingOccupancyFraction <span class="number">45995</span></span><br><span class="line">-XX:CMSInitiatingOccupancyFraction=<span class="number">85</span></span><br></pre></td></tr></table></figure>
+<h2 id="u793A_u4F8B"><a href="#u793A_u4F8B" class="headerlink" title="示例"></a><strong> 示例 </strong></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ jinfo -flag CMSInitiatingOccupancyFraction <span class="number">45995</span></span><br><span class="line">-XX:CMSInitiatingOccupancyFraction=<span class="number">85</span></span><br></pre></td></tr></table></figure>
 </span>
       
     </div>
@@ -424,7 +424,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-_jinfo"><span class="nav-number">1.</span> <span class="nav-text"> 1. jinfo </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1__u547D_u4EE4_u683C_u5F0F"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 命令格式 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2_option_u53C2_u6570"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 option参数 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3__u793A_u4F8B"><span class="nav-number">1.3.</span> <span class="nav-text"> 1.3 示例 </span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jinfo"><span class="nav-number">1.</span> <span class="nav-text"> jinfo </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u547D_u4EE4_u683C_u5F0F"><span class="nav-number">1.1.</span> <span class="nav-text"> 命令格式 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#option_u53C2_u6570"><span class="nav-number">1.2.</span> <span class="nav-text"> option参数 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u793A_u4F8B"><span class="nav-number">1.3.</span> <span class="nav-text"> 示例 </span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
