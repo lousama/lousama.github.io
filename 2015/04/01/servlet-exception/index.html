@@ -1,12 +1,57 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="theme-next   use-motion ">
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>getOutputStream() has already been called for this response] with root cause | Lousama</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="console输出：">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,servlet," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="console输出：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="getOutputStream() has already been called for this response] with root cause">
 <meta property="og:url" content="http://lousama.com/2015/04/01/servlet-exception/index.html">
@@ -16,221 +61,186 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="getOutputStream() has already been called for this response] with root cause">
 <meta name="twitter:description" content="console输出：">
-  
-  
-    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
- 
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> getOutputStream() has already been called for this response] with root cause | Lousama </title>
 </head>
 
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="/img/avatar.jpg" class="js-avatar">
-			
-		</a>
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">Lousama</a></h1>
-		</hgroup>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
 
-		
-		<p class="header-subtitle">道狭草木长，夕露沾我衣</p>
-		
 
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						<div class="icon-wrap icon-link hide" data-idx="2">
-							<div class="loopback_l"></div>
-							<div class="loopback_r"></div>
-						</div>
-						
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>Menu</li>
-						<li>Tags</li>
-						
-						<li>Links</li>
-						
-						
-					</ul>
-				</div>
-			</div>
-		
 
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">Home</a></li>
-				        
-							<li><a href="/archives">Archives</a></li>
-				        
-							<li><a href="/categories/Java">Java</a></li>
-				        
-							<li><a href="/categories/Linux">Linux</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/lousama" title="github">github</a>
-					        
-								<a class="weibo" target="_blank" href="http://weibo.com/lousama" title="weibo">weibo</a>
-					        
-								<a class="facebook" target="_blank" href="https://www.facebook.com/sama.lou.52" title="facebook">facebook</a>
-					        
-								<a class="twitter" target="_blank" href="https://twitter.com/lougooo" title="twitter">twitter</a>
-					        
-						</div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Homebrew/" style="font-size: 13.33px;">Homebrew</a> <a href="/tags/JVM/" style="font-size: 16.67px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MapReduce/" style="font-size: 10px;">MapReduce</a> <a href="/tags/Netty/" style="font-size: 10px;">Netty</a> <a href="/tags/Pgg/" style="font-size: 10px;">Pgg</a> <a href="/tags/Scala/" style="font-size: 13.33px;">Scala</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/Spark/" style="font-size: 13.33px;">Spark</a> <a href="/tags/grep/" style="font-size: 10px;">grep</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/pgg/" style="font-size: 13.33px;">pgg</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/事故/" style="font-size: 10px;">事故</a> <a href="/tags/生产/" style="font-size: 10px;">生产</a>
-					</div>
-				</section>
-				
-				
-				
-				<section class="switch-part switch-part3">
-					<div id="js-friends">
-					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/69e7d01b513e">13c mid-out Android</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.2baxb.me">axb</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.aquariuslt.com/">instigates male little A</a>
-			        
-			        </div>
-				</section>
-				
 
-				
-			</div>
-		</div>
-	</header>				
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lousama</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">道狭草木长，夕露沾我衣</p>
 </div>
 
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">Lousama</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="/img/avatar.jpg" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">Lousama</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">道狭草木长，夕露沾我衣</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">Home</a></li>
-		        
-					<li><a href="/archives">Archives</a></li>
-		        
-					<li><a href="/categories/Java">Java</a></li>
-		        
-					<li><a href="/categories/Linux">Linux</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/lousama" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/lousama" title="weibo">weibo</a>
-			        
-						<a class="facebook" target="_blank" href="https://www.facebook.com/sama.lou.52" title="facebook">facebook</a>
-			        
-						<a class="twitter" target="_blank" href="https://twitter.com/lougooo" title="twitter">twitter</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
 </nav>
 
-      <div class="body-wrap"><article id="post-servlet-exception" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/01/servlet-exception/" class="article-date">
-  	<time datetime="2015-04-01T03:04:55.000Z" itemprop="datePublished">2015-04-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+
   
-    <h1 class="article-title" itemprop="name">
-      getOutputStream() has already been called for this response] with root cause
-    </h1>
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                getOutputStream() has already been called for this response] with root cause
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-04-01T11:04:55+08:00" content="2015-04-01">
+              2015-04-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
       </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li></ul>
-	</div>
-
-        
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Java/">Java</a>
-	</div>
-
-
-        <div class="clearfix"></div>
-      </div>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+
+
+    <div class="post-body">
+
       
-        <p>console输出：<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">SEVERE: Servlet.service() <span class="keyword">for</span> servlet [jsp] in context with path [/Test] threw exception [java.lang.IllegalStateException: getOutputStream() has already been called <span class="keyword">for</span> <span class="keyword">this</span> response] with root cause  </span><br><span class="line">java.lang.IllegalStateException: getOutputStream() has already been called <span class="keyword">for</span> <span class="keyword">this</span> response  </span><br><span class="line">at org.apache.catalina.connector.Response.getWriter(Response.java:<span class="number">639</span>)  </span><br><span class="line">at org.apache.catalina.connector.ResponseFacade.getWriter(ResponseFacade.java:<span class="number">214</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspWriterImpl.initOut(JspWriterImpl.java:<span class="number">125</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspWriterImpl.flushBuffer(JspWriterImpl.java:<span class="number">118</span>)  </span><br><span class="line">at org.apache.jasper.runtime.PageContextImpl.release(PageContextImpl.java:<span class="number">190</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspFactoryImpl.internalReleasePageContext(JspFactoryImpl.java:<span class="number">126</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspFactoryImpl.releasePageContext(JspFactoryImpl.java:<span class="number">80</span>)  </span><br><span class="line">at org.apache.jsp.index_jsp._jspService(index_jsp.java:<span class="number">116</span>)  </span><br><span class="line">at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:<span class="number">70</span>)  </span><br><span class="line">at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">722</span>)  </span><br><span class="line">at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:<span class="number">432</span>)  </span><br><span class="line">at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:<span class="number">390</span>)  </span><br><span class="line">at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:<span class="number">334</span>)  </span><br><span class="line">at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">722</span>)  </span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">305</span>)  </span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">210</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:<span class="number">222</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:<span class="number">123</span>)  </span><br><span class="line">at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:<span class="number">472</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:<span class="number">168</span>)  </span><br><span class="line">at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:<span class="number">99</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:<span class="number">118</span>)  </span><br><span class="line">at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:<span class="number">407</span>)  </span><br><span class="line">at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:<span class="number">1002</span>)  </span><br><span class="line">at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:<span class="number">585</span>)  </span><br><span class="line">at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:<span class="number">310</span>)  </span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1110</span>)  </span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:<span class="number">603</span>)  </span><br><span class="line">at java.lang.Thread.run(Thread.java:<span class="number">722</span>)</span><br></pre></td></tr></table></figure></p>
+      
+
+      
+        <span itemprop="articleBody"><p>console输出：<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">SEVERE: Servlet.service() <span class="keyword">for</span> servlet [jsp] in context with path [/Test] threw exception [java.lang.IllegalStateException: getOutputStream() has already been called <span class="keyword">for</span> <span class="keyword">this</span> response] with root cause  </span><br><span class="line">java.lang.IllegalStateException: getOutputStream() has already been called <span class="keyword">for</span> <span class="keyword">this</span> response  </span><br><span class="line">at org.apache.catalina.connector.Response.getWriter(Response.java:<span class="number">639</span>)  </span><br><span class="line">at org.apache.catalina.connector.ResponseFacade.getWriter(ResponseFacade.java:<span class="number">214</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspWriterImpl.initOut(JspWriterImpl.java:<span class="number">125</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspWriterImpl.flushBuffer(JspWriterImpl.java:<span class="number">118</span>)  </span><br><span class="line">at org.apache.jasper.runtime.PageContextImpl.release(PageContextImpl.java:<span class="number">190</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspFactoryImpl.internalReleasePageContext(JspFactoryImpl.java:<span class="number">126</span>)  </span><br><span class="line">at org.apache.jasper.runtime.JspFactoryImpl.releasePageContext(JspFactoryImpl.java:<span class="number">80</span>)  </span><br><span class="line">at org.apache.jsp.index_jsp._jspService(index_jsp.java:<span class="number">116</span>)  </span><br><span class="line">at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:<span class="number">70</span>)  </span><br><span class="line">at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">722</span>)  </span><br><span class="line">at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:<span class="number">432</span>)  </span><br><span class="line">at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:<span class="number">390</span>)  </span><br><span class="line">at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:<span class="number">334</span>)  </span><br><span class="line">at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">722</span>)  </span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">305</span>)  </span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">210</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:<span class="number">222</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:<span class="number">123</span>)  </span><br><span class="line">at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:<span class="number">472</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:<span class="number">168</span>)  </span><br><span class="line">at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:<span class="number">99</span>)  </span><br><span class="line">at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:<span class="number">118</span>)  </span><br><span class="line">at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:<span class="number">407</span>)  </span><br><span class="line">at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:<span class="number">1002</span>)  </span><br><span class="line">at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:<span class="number">585</span>)  </span><br><span class="line">at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:<span class="number">310</span>)  </span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1110</span>)  </span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:<span class="number">603</span>)  </span><br><span class="line">at java.lang.Thread.run(Thread.java:<span class="number">722</span>)</span><br></pre></td></tr></table></figure></p>
 <hr>
 <p><code>getOutputStream() has already been called for this response</code>这个问题今天又遇到了。<br>起因是写一个http服务，在index.jsp里面直接调用了server(request,response)。<br>具体的原因：jsp编译成servlet之后在函数<br><code>_jspService(HttpServletRequest request, HttpServletResponse response)</code>的最后有一段如下代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">finally</span> &#123;    </span><br><span class="line">      <span class="keyword">if</span> (_jspxFactory != <span class="literal">null</span>)     </span><br><span class="line">          _jspxFactory.releasePageContext(_jspx_page_context);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -240,143 +250,409 @@
 <hr>
 <p>贴上jsp内容</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@page <span class="keyword">import</span>=<span class="string">"com.ct.Server"</span>%&gt;  </span><br><span class="line">&lt;%@ page language=<span class="string">"java"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;  </span><br><span class="line">&lt;%  </span><br><span class="line">String path = request.getContextPath();  </span><br><span class="line"><span class="built_in">String</span> basePath = request.getScheme()+<span class="string">"://"</span>+request.getServerName()+<span class="string">":"</span>+request.getServerPort()+path+<span class="string">"/"</span>;  </span><br><span class="line">Server.post(request, response);  </span><br><span class="line">out.clear();   </span><br><span class="line">out=pageContext.pushBody();  </span><br><span class="line">%&gt;  </span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="doctype">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="title">head</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="title">base</span> <span class="attribute">href</span>=<span class="value">"&lt;%=basePath%&gt;"</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>index<span class="tag">&lt;/<span class="title">title</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"pragma"</span> <span class="attribute">content</span>=<span class="value">"no-cache"</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"cache-control"</span> <span class="attribute">content</span>=<span class="value">"no-cache"</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"expires"</span> <span class="attribute">content</span>=<span class="value">"0"</span>&gt;</span>      </span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"keywords"</span> <span class="attribute">content</span>=<span class="value">"keyword1,keyword2,keyword3"</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"description"</span> <span class="attribute">content</span>=<span class="value">"This is my page"</span>&gt;</span>  </span><br><span class="line">    <span class="comment">&lt;!-- </span><br><span class="line">    	&lt;link rel="stylesheet" type="text/css" href="styles.css"&gt; </span><br><span class="line">    --&gt;</span>  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;/<span class="title">head</span>&gt;</span>  </span><br><span class="line">    </span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
+</span>
       
     </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/servlet/" rel="tag">#servlet</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/11/homebrew/" rel="prev" title="好马配好鞍，Mac OS Ⅹ 神器之Homebrew">
+                好马配好鞍，Mac OS Ⅹ 神器之Homebrew <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
     
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/07/11/homebrew/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          好马配好鞍，Mac OS Ⅹ 神器之Homebrew
-        
+
+
       </div>
-    </a>
-  
-  
-</nav>
 
-  
-</article>
-
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<!--<a class="jiathis_button_facebook"></a> 
-    <a class="jiathis_button_twitter"></a>-->
-    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_weixin"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="servlet-exception" data-title="getOutputStream() has already been called for this response] with root cause" data-url="http://lousama.com/2015/04/01/servlet-exception/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"lousama"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
-
-</div>
-      <footer id="footer">
-  <div class="outer">  
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 Lousama       
-    	</div>
       
-      	<div class="footer-right">
-          Life for you,for coding
-      	</div>
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-72383275-1', 'auto');
-  ga('send', 'pageview');
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
 
-</script>
-</footer>
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="Lousama" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Lousama</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">道狭草木长，夕露沾我衣</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lousama" target="_blank">
+                  
+                    <i class="fa fa-github"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lousama" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">This post does not have a Table Of Contents</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
     </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lousama</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+    
+
+  
 
 
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
 
 
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
 
 
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
     }
-});
 
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
 </script>
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
 </script>
 
 
 
-  </div>
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
 </body>
 </html>
