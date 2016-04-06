@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JVM,Java," />
+  <meta name="keywords" content="随笔," />
 
 
 
@@ -51,16 +51,20 @@
 
 
 
-<meta name="description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
+<meta name="description" content="长久的异地让我养成了很是恬静的性格，努力让自己不因物喜不以己悲。
+琨琨带给了我对生活新的希望和追求，不管结果与否，都很感谢她的信任。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM调优前戏之JDK命令行工具---jhat">
-<meta property="og:url" content="http://lousama.com/2016/01/20/jdk命令行工具详解-jhat/index.html">
+<meta property="og:title" content="选择">
+<meta property="og:url" content="http://lousama.com/2016/04/07/xuanze/index.html">
 <meta property="og:site_name" content="Lousama">
-<meta property="og:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
-<meta property="og:updated_time" content="2016-04-01T16:09:49.000Z">
+<meta property="og:description" content="长久的异地让我养成了很是恬静的性格，努力让自己不因物喜不以己悲。
+琨琨带给了我对生活新的希望和追求，不管结果与否，都很感谢她的信任。">
+<meta property="og:image" content="http://t.cn/RqbjuFF">
+<meta property="og:updated_time" content="2016-04-06T17:05:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM调优前戏之JDK命令行工具---jhat">
-<meta name="twitter:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
+<meta name="twitter:title" content="选择">
+<meta name="twitter:description" content="长久的异地让我养成了很是恬静的性格，努力让自己不因物喜不以己悲。
+琨琨带给了我对生活新的希望和追求，不管结果与否，都很感谢她的信任。">
 
 
 
@@ -72,7 +76,7 @@
   };
 </script>
 
-  <title> JVM调优前戏之JDK命令行工具---jhat | Lousama </title>
+  <title> 选择 | Lousama </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -216,7 +220,7 @@ ga('send', 'pageview');
             
             
               
-                JVM调优前戏之JDK命令行工具---jhat
+                选择
               
             
           </h1>
@@ -225,8 +229,8 @@ ga('send', 'pageview');
         <div class="post-meta">
           <span class="post-time">
             Posted on
-            <time itemprop="dateCreated" datetime="2016-01-20T10:25:15+08:00" content="2016-01-20">
-              2016-01-20
+            <time itemprop="dateCreated" datetime="2016-04-07T00:40:21+08:00" content="2016-04-07">
+              2016-04-07
             </time>
           </span>
 
@@ -235,8 +239,8 @@ ga('send', 'pageview');
               &nbsp; | &nbsp; In
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/心情随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">心情随笔</span>
                   </a>
                 </span>
 
@@ -251,8 +255,8 @@ ga('send', 'pageview');
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/20/jdk命令行工具详解-jhat/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/20/jdk命令行工具详解-jhat/" itemprop="commentsCount"></span>
+                <a href="/2016/04/07/xuanze/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/xuanze/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -271,14 +275,14 @@ ga('send', 'pageview');
       
 
       
-        <span itemprop="articleBody"><p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
+        <span itemprop="articleBody"><p>长久的异地让我养成了很是恬静的性格，努力让自己不因物喜不以己悲。</p>
+<p>琨琨带给了我对生活新的希望和追求，不管结果与否，都很感谢她的信任。</p>
 <a id="more"></a>
-<hr>
-<h1 id="jhat"><a href="#jhat" class="headerlink" title="jhat"></a><strong> jhat </strong></h1><p>jhat(JVM Heap Analysis Tool)命令是与jmap搭配使用，用来分析jmap生成的dump，jhat内置了一个微型的HTTP/HTML服务器，生成dump的分析结果后，可以在浏览器中查看。在此要注意，一般不会直接在服务器上进行分析，因为jhat是一个耗时并且耗费硬件资源的过程，一般把服务器生成的dump文件复制到本地或其他机器上进行分析。</p>
-<h2 id="u547D_u4EE4_u683C_u5F0F"><a href="#u547D_u4EE4_u683C_u5F0F" class="headerlink" title="命令格式"></a><strong> 命令格式 </strong></h2><pre><code>jhat [dumpfile]
-</code></pre><h2 id="u793A_u4F8B"><a href="#u793A_u4F8B" class="headerlink" title="示例"></a><strong> 示例 </strong></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ jhat -J-Xmx512m dump.hprof</span><br><span class="line">eading from dump.hprof...</span><br><span class="line">Dump file created Fri Mar <span class="number">11</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">42</span> CST <span class="number">2016</span></span><br><span class="line">Snapshot <span class="built_in">read</span>, resolving...</span><br><span class="line">Resolving <span class="number">271678</span> objects...</span><br><span class="line">Chasing references, expect <span class="number">54</span> dots......................................................</span><br><span class="line">Eliminating duplicate references......................................................</span><br><span class="line">Snapshot resolved.</span><br><span class="line">Started HTTP server on port <span class="number">7000</span></span><br><span class="line">Server is ready.</span><br></pre></td></tr></table></figure>
-<p>中间的-J-Xmx512m是在dump快照很大的情况下分配512M内存去启动HTTP服务器，运行完之后就可在浏览器打开Http://localhost:7000进行快照分析<br>堆快照分析主要在最后面的Heap Histogram里，里面根据class列出了dump的时候所有存活对象。</p>
-<h2 id="u9AD8_u80FDtips"><a href="#u9AD8_u80FDtips" class="headerlink" title="高能tips"></a><strong> 高能tips </strong></h2><p><strong> 分析同样一个dump快照，MAT需要的额外内存比jhat要小的多的多，所以建议使用MAT来进行分析，当然也看个人偏好。</strong></p>
+<p>得之我幸，失之我命，<br>但凡事只要还有一丝机会就要努力去争取。</p>
+<p>操蛋的是往往选择要比努力更加重要。</p>
+<p>我个人其实还是比较难劝动的，事情要么在犹豫，决定了之后就不会再变。<br>不过其实每每选择出现的时候心里早已打定了主意，表现出的犹豫不决模棱两可也只是一步步的把内心逼发出来。</p>
+<p>其实答案很简单，阿里机会今年错过了明年还会有，琨琨今年错过了这辈子就错过了。</p>
+<p><img src="http://t.cn/RqbjuFF" alt="执子之手，与子。。。"></p>
 </span>
       
     </div>
@@ -287,9 +291,7 @@ ga('send', 'pageview');
       
         <div class="post-tags">
           
-            <a href="/tags/JVM/" rel="tag">#JVM</a>
-          
-            <a href="/tags/Java/" rel="tag">#Java</a>
+            <a href="/tags/随笔/" rel="tag">#随笔</a>
           
         </div>
       
@@ -298,17 +300,13 @@ ga('send', 'pageview');
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/20/jdk命令行工具详解-jstack/" rel="next" title="JVM调优前戏之JDK命令行工具---jstack">
-                <i class="fa fa-chevron-left"></i> JVM调优前戏之JDK命令行工具---jstack
+              <a href="/2016/03/11/jvm调优经验/" rel="next" title="JVM调优之经验">
+                <i class="fa fa-chevron-left"></i> JVM调优之经验
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/20/jdk命令行工具详解-jps/" rel="prev" title="JVM调优前戏之JDK命令行工具---jps">
-                JVM调优前戏之JDK命令行工具---jps <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -358,8 +356,8 @@ ga('send', 'pageview');
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/20/jdk命令行工具详解-jhat/"
-           data-title="JVM调优前戏之JDK命令行工具---jhat" data-url="http://lousama.com/2016/01/20/jdk命令行工具详解-jhat/">
+      <div class="ds-thread" data-thread-key="2016/04/07/xuanze/"
+           data-title="选择" data-url="http://lousama.com/2016/04/07/xuanze/">
       </div>
     
   </div>
@@ -467,7 +465,7 @@ ga('send', 'pageview');
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jhat"><span class="nav-number">1.</span> <span class="nav-text"> jhat </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u547D_u4EE4_u683C_u5F0F"><span class="nav-number">1.1.</span> <span class="nav-text"> 命令格式 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u793A_u4F8B"><span class="nav-number">1.2.</span> <span class="nav-text"> 示例 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u9AD8_u80FDtips"><span class="nav-number">1.3.</span> <span class="nav-text"> 高能tips </span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table Of Contents</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
