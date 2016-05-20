@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="jar,maven,mybatis," />
+  <meta name="keywords" content="jar,maven," />
 
 
 
@@ -51,18 +51,18 @@
 
 
 
-<meta name="description" content="新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台使用查询的时候就会异常的麻烦，所以做了个消息异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。然后工作之余撸了个处女开源项目，一个简单的代码生成器，正好适合目前这种CRUD，减少重复作业.
+<meta name="description" content="新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台花式查询的时候就会异常的麻烦，所以使用MQ来异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。然后工作之余撸了个处女开源项目，一个简单的代码生成器，正好适合目前这种CRUD，减少重复作业.
 前">
 <meta property="og:type" content="article">
 <meta property="og:title" content="最近的几个bug-maven">
 <meta property="og:url" content="http://lousama.com/2016/05/21/本地依赖jar包bug/index.html">
 <meta property="og:site_name" content="Lousama">
-<meta property="og:description" content="新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台使用查询的时候就会异常的麻烦，所以做了个消息异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。然后工作之余撸了个处女开源项目，一个简单的代码生成器，正好适合目前这种CRUD，减少重复作业.
+<meta property="og:description" content="新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台花式查询的时候就会异常的麻烦，所以使用MQ来异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。然后工作之余撸了个处女开源项目，一个简单的代码生成器，正好适合目前这种CRUD，减少重复作业.
 前">
-<meta property="og:updated_time" content="2016-05-20T17:58:07.000Z">
+<meta property="og:updated_time" content="2016-05-20T18:09:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最近的几个bug-maven">
-<meta name="twitter:description" content="新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台使用查询的时候就会异常的麻烦，所以做了个消息异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。然后工作之余撸了个处女开源项目，一个简单的代码生成器，正好适合目前这种CRUD，减少重复作业.
+<meta name="twitter:description" content="新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台花式查询的时候就会异常的麻烦，所以使用MQ来异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。然后工作之余撸了个处女开源项目，一个简单的代码生成器，正好适合目前这种CRUD，减少重复作业.
 前">
 
 
@@ -274,9 +274,9 @@
       
 
       
-        <span itemprop="articleBody"><p>新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台使用查询的时候就会异常的麻烦，所以做了个消息异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。<br>然后工作之余撸了个处女开源项目，一个简单的<a href="https://github.com/lousama/free_generator" target="_blank" rel="external">代码生成器</a>，正好适合目前这种CRUD，减少重复作业.</p>
+        <span itemprop="articleBody"><p>新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台花式查询的时候就会异常的麻烦，所以使用MQ来异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。<br>然后工作之余撸了个处女开源项目，一个简单的<a href="https://github.com/lousama/free_generator" target="_blank" rel="external">代码生成器</a>，正好适合目前这种CRUD，减少重复作业.</p>
 <p>前戏就这么些，那么接下来聊聊最近遇到的几个bug。</p>
-<h1 id="maven_u76F8_u5173"><a href="#maven_u76F8_u5173" class="headerlink" title="maven相关"></a>maven相关</h1><h2 id="u5173_u952E_u8BCD_uFF1A"><a href="#u5173_u952E_u8BCD_uFF1A" class="headerlink" title="关键词："></a>关键词：</h2><p><code>maven</code>,<code>本地jar依赖</code>,<code>assembly</code>,<code>打包</code>,</p>
+<h1 id="maven_u76F8_u5173"><a href="#maven_u76F8_u5173" class="headerlink" title="maven相关"></a>maven相关</h1><h2 id="u5173_u952E_u8BCD_uFF1A"><a href="#u5173_u952E_u8BCD_uFF1A" class="headerlink" title="关键词："></a>关键词：</h2><p><code>maven</code> <code>本地jar依赖</code> <code>assembly</code> <code>打jar包</code>,</p>
 <h2 id="u9519_u8BEF_uFF1A"><a href="#u9519_u8BEF_uFF1A" class="headerlink" title="错误："></a>错误：</h2><p>can not find or load main class<br>找不到或无法加载主类<br><a id="more"></a><br>好了，完整的说一下吧<br>一切都要从那个万恶的ojdbc包说起，maven官方库居然没有这个oracle数据库的驱动包了，简直匪夷所思，难道是我的姿势有问题？没办法，只能野路子找了个加到本地lib目录，添加一下本地依赖了。</p>
 <h2 id="u672C_u5730_u4F9D_u8D56_u6253_u5305"><a href="#u672C_u5730_u4F9D_u8D56_u6253_u5305" class="headerlink" title="本地依赖打包"></a>本地依赖打包</h2><p>maven添加本地依赖很简单，<code>pom.xml</code>中加入：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.oracle<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>ojdbc6<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>11.2.0.1.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="title">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">systemPath</span>&gt;</span>$&#123;basedir&#125;/lib/ojdbc6-11.2.0.1.0.jar<span class="tag">&lt;/<span class="title">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p><code>${basedir}</code>没有显示设置的话默认就是项目根目录。</p>
@@ -303,8 +303,6 @@
           
             <a href="/tags/maven/" rel="tag">#maven</a>
           
-            <a href="/tags/mybatis/" rel="tag">#mybatis</a>
-          
         </div>
       
 
@@ -319,6 +317,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/21/Mybatis-sql-bug/" rel="prev" title="最近的几个bug-mybatis">
+                最近的几个bug-mybatis <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -413,7 +415,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -427,7 +429,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
@@ -521,11 +523,11 @@
 </div>
 
 <!--<div class="powered-by">
-  Desenvolvido com amor com <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
 </div>
 
 <div class="theme-info">
-  Tema -
+  主題 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
