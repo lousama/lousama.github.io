@@ -52,25 +52,25 @@
 
 
 <meta name="description" content="接着上回，这回说说mybatis。
-mybatis还算不管互联网公司还是传统企业非常普遍的ORM
+mybatis算是互联网公司和传统企业都非常普遍使用的一款ORM
 之所以想重开一篇是写的时候发现想说的有点多，其实同一个报错可能引起的原因有很多，单列出error log然后报解决方法并不能很清晰的认识问题，而且我也希望在记录的时候不止是解决某个bug本身，而是把这个过程前因后果甚至收获记录下来，共享加共勉。
-下面过程会涉及一些mybatis源码解读，想看bug描述">
+下面过程会涉及一些mybatis源码解读，想看bug">
 <meta property="og:type" content="article">
 <meta property="og:title" content="最近的几个bug-mybatis">
 <meta property="og:url" content="http://lousama.com/2016/05/21/Mybatis-sql-bug/index.html">
 <meta property="og:site_name" content="Lousama">
 <meta property="og:description" content="接着上回，这回说说mybatis。
-mybatis还算不管互联网公司还是传统企业非常普遍的ORM
+mybatis算是互联网公司和传统企业都非常普遍使用的一款ORM
 之所以想重开一篇是写的时候发现想说的有点多，其实同一个报错可能引起的原因有很多，单列出error log然后报解决方法并不能很清晰的认识问题，而且我也希望在记录的时候不止是解决某个bug本身，而是把这个过程前因后果甚至收获记录下来，共享加共勉。
-下面过程会涉及一些mybatis源码解读，想看bug描述">
+下面过程会涉及一些mybatis源码解读，想看bug">
 <meta property="og:image" content="http://t.cn/R5vGrAL">
-<meta property="og:updated_time" content="2016-05-20T18:59:01.000Z">
+<meta property="og:updated_time" content="2016-05-20T19:08:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最近的几个bug-mybatis">
 <meta name="twitter:description" content="接着上回，这回说说mybatis。
-mybatis还算不管互联网公司还是传统企业非常普遍的ORM
+mybatis算是互联网公司和传统企业都非常普遍使用的一款ORM
 之所以想重开一篇是写的时候发现想说的有点多，其实同一个报错可能引起的原因有很多，单列出error log然后报解决方法并不能很清晰的认识问题，而且我也希望在记录的时候不止是解决某个bug本身，而是把这个过程前因后果甚至收获记录下来，共享加共勉。
-下面过程会涉及一些mybatis源码解读，想看bug描述">
+下面过程会涉及一些mybatis源码解读，想看bug">
 
 
 
@@ -282,7 +282,7 @@ mybatis还算不管互联网公司还是传统企业非常普遍的ORM
 
       
         <span itemprop="articleBody"><p>接着上回，这回说说mybatis。</p>
-<p>mybatis还算不管互联网公司还是传统企业非常普遍的ORM</p>
+<p>mybatis算是互联网公司和传统企业都非常普遍使用的一款ORM</p>
 <p>之所以想重开一篇是写的时候发现想说的有点多，其实同一个报错可能引起的原因有很多，单列出error log然后报解决方法并不能很清晰的认识问题，而且我也希望在记录的时候不止是解决某个bug本身，而是把这个过程前因后果甚至收获记录下来，共享加共勉。</p>
 <p>下面过程会涉及一些mybatis源码解读，想看bug描述和解决的直接拉到最后</p>
 <p>好了，言归正传。</p>
