@@ -1,0 +1,769 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="jar,maven,mybatis," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台使用查询的时候就会异常的麻烦，所以做了个消息异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。然后工作之余撸了个处女开源项目，一个简单的代码生成器，正好适合目前这种CRUD，减少重复作业.
+前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最近的几个bug-maven">
+<meta property="og:url" content="http://lousama.com/2016/05/21/本地依赖jar包bug/index.html">
+<meta property="og:site_name" content="Lousama">
+<meta property="og:description" content="新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台使用查询的时候就会异常的麻烦，所以做了个消息异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。然后工作之余撸了个处女开源项目，一个简单的代码生成器，正好适合目前这种CRUD，减少重复作业.
+前">
+<meta property="og:updated_time" content="2016-05-20T17:58:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最近的几个bug-maven">
+<meta name="twitter:description" content="新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台使用查询的时候就会异常的麻烦，所以做了个消息异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。然后工作之余撸了个处女开源项目，一个简单的代码生成器，正好适合目前这种CRUD，减少重复作业.
+前">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> 最近的几个bug-maven | Lousama </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72383275-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lousama</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">lousama</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                最近的几个bug-maven
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-05-21T01:11:49+08:00" content="2016-05-21">
+              2016-05-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/BUG/" itemprop="url" rel="index">
+                    <span itemprop="name">BUG</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/21/本地依赖jar包bug/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/21/本地依赖jar包bug/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台使用查询的时候就会异常的麻烦，所以做了个消息异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。<br>然后工作之余撸了个处女开源项目，一个简单的<a href="https://github.com/lousama/free_generator" target="_blank" rel="external">代码生成器</a>，正好适合目前这种CRUD，减少重复作业.</p>
+<p>前戏就这么些，那么接下来聊聊最近遇到的几个bug。</p>
+<h1 id="maven_u76F8_u5173"><a href="#maven_u76F8_u5173" class="headerlink" title="maven相关"></a>maven相关</h1><h2 id="u5173_u952E_u8BCD_uFF1A"><a href="#u5173_u952E_u8BCD_uFF1A" class="headerlink" title="关键词："></a>关键词：</h2><p><code>maven</code>,<code>本地jar依赖</code>,<code>assembly</code>,<code>打包</code>,</p>
+<h2 id="u9519_u8BEF_uFF1A"><a href="#u9519_u8BEF_uFF1A" class="headerlink" title="错误："></a>错误：</h2><p>can not find or load main class<br>找不到或无法加载主类<br><a id="more"></a><br>好了，完整的说一下吧<br>一切都要从那个万恶的ojdbc包说起，maven官方库居然没有这个oracle数据库的驱动包了，简直匪夷所思，难道是我的姿势有问题？没办法，只能野路子找了个加到本地lib目录，添加一下本地依赖了。</p>
+<h2 id="u672C_u5730_u4F9D_u8D56_u6253_u5305"><a href="#u672C_u5730_u4F9D_u8D56_u6253_u5305" class="headerlink" title="本地依赖打包"></a>本地依赖打包</h2><p>maven添加本地依赖很简单，<code>pom.xml</code>中加入：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.oracle<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>ojdbc6<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>11.2.0.1.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="title">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">systemPath</span>&gt;</span>$&#123;basedir&#125;/lib/ojdbc6-11.2.0.1.0.jar<span class="tag">&lt;/<span class="title">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>${basedir}</code>没有显示设置的话默认就是项目根目录。</p>
+<p>package里面的话设置把依赖的包跟jar生成在同一目录下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependencySets</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">dependencySet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">useProjectArtifact</span>&gt;</span>false<span class="tag">&lt;/<span class="title">useProjectArtifact</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">outputDirectory</span>&gt;</span>lib<span class="tag">&lt;/<span class="title">outputDirectory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">unpack</span>&gt;</span>false<span class="tag">&lt;/<span class="title">unpack</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">dependencySet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependencySets</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这段的作用是第三方依赖的包不进行解压，打进与jar同目录的lib目录</p>
+<p>但执行<code>mvn clean package</code>命令的时候只会把非本地的包打入lib目录下，需要加上下面这段，来把本地依赖的包也打进去：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependencySet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="title">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">include</span>&gt;</span>*:jar<span class="tag">&lt;/<span class="title">include</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">includes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">outputDirectory</span>&gt;</span>lib<span class="tag">&lt;/<span class="title">outputDirectory</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependencySet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>lib包是齐了，那引入路径呢，我们知道maven打成的jar包，classpath都是在<code>jar/META-INF/MANIFEST.MF</code>文件中的Class-Path项设置，那么在<code>pom.xml</code>里设置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.4<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">archive</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">addMavenDescriptor</span>&gt;</span>false<span class="tag">&lt;/<span class="title">addMavenDescriptor</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">manifest</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">mainClass</span>&gt;</span>com.lousama.generator.exec.Executor<span class="tag">&lt;/<span class="title">mainClass</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">addClasspath</span>&gt;</span>true<span class="tag">&lt;/<span class="title">addClasspath</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">classpathPrefix</span>&gt;</span>lib<span class="tag">&lt;/<span class="title">classpathPrefix</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">manifest</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;manifestFile&gt;MANIFEST.MF&lt;/manifestFile&gt;--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 引入本地依赖jar到MANIFEST.MF的calss-path中--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">manifestEntries</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">Class-Path</span>&gt;</span>$&#123;basedir&#125;/lib/ojdbc6-11.2.0.1.0.jar<span class="tag">&lt;/<span class="title">Class-Path</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">manifestEntries</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">archive</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>配置到此为止，OK一切正常，打出来的jar包真实，可靠。</p>
+<p>但到了win上就阿西吧了！就出现了上述错误描述的问题。<br>乍看上去，很小儿科的问题嘛，没加载到主类。但搞了半天硬是没弄好，问题嘛，肯定是出在classpath上，后来发现本地的那个oracle驱动包打进去的时候是绝对路径。在OS X下没问题，但在win下面绝对路径就怎么也找不到主类了。<br>一开始把上述代码中<code>&lt;Class-Path&gt;</code>节点的<code>${basedir}</code>去掉，这样就可以打成相对路径，但打包的时候一直提示没找到该包。<br>阿西巴！打不起我，我还躲不起么我，干脆一不做二不休，不用你来生成MANIFEST了，我自己写好MANIFEST，然后打包的时候指定进去不就OK了。</p>
+<p>最后在项目目录下添加自己写好的MANIFEST.MF，然后加入上面注释了的那段<code>&lt;manifestFile&gt;MANIFEST.MF&lt;/manifestFile&gt;</code></p>
+<p>OK,终于大功告成，win下也能成功运行。</p>
+<p>最新消息：不过后来又尝试了下去掉<code>${basedir}/</code>后好使了。。阿西巴！</p>
+<h1 id="mybatis_u76F8_u5173"><a href="#mybatis_u76F8_u5173" class="headerlink" title="mybatis相关"></a>mybatis相关</h1><p>接下来说说第二个bug，是mybatis相关的。</p>
+<p>因为我们同步数据是通过消息做异步处理的，业务应用是发送数据快照过来，算了 想了想要说的有点多，重新开一篇来写。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jar/" rel="tag">#jar</a>
+          
+            <a href="/tags/maven/" rel="tag">#maven</a>
+          
+            <a href="/tags/mybatis/" rel="tag">#mybatis</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/08/share/" rel="next" title="GitHub托管静态博客指南">
+                <i class="fa fa-chevron-left"></i> GitHub托管静态博客指南
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/21/本地依赖jar包bug/"
+           data-title="最近的几个bug-maven" data-url="http://lousama.com/2016/05/21/本地依赖jar包bug/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="Lousama" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Lousama</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">道狭草木长，夕露沾我衣</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lousama" target="_blank">
+                  
+                    <i class="fa fa-github"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lousama" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://aquariuslt.com/" target="_blank">instigates king A</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.2baxb.me" target="_blank">axb</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/69e7d01b513e" target="_blank">13c mid-out Android</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#maven_u76F8_u5173"><span class="nav-number">1.</span> <span class="nav-text">maven相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5173_u952E_u8BCD_uFF1A"><span class="nav-number">1.1.</span> <span class="nav-text">关键词：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u9519_u8BEF_uFF1A"><span class="nav-number">1.2.</span> <span class="nav-text">错误：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u672C_u5730_u4F9D_u8D56_u6253_u5305"><span class="nav-number">1.3.</span> <span class="nav-text">本地依赖打包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mybatis_u76F8_u5173"><span class="nav-number">2.</span> <span class="nav-text">mybatis相关</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lousama</span>
+</div>
+
+<!--<div class="powered-by">
+  Desenvolvido com amor com <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Tema -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>-->
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lousama"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+     
+  	  <script type="text/javascript">
+  		var duoshuo_user_ID = lousama
+      var duoshuo_admin_nickname=""
+  	  </script>
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

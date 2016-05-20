@@ -201,15 +201,112 @@
 
     
     
+
+    
       
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/21/本地依赖jar包bug/" itemprop="url">
+                  最近的几个bug-maven
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-05-21T01:11:49+08:00" content="2016-05-21">
+              2016-05-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/BUG/" itemprop="url" rel="index">
+                    <span itemprop="name">BUG</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/21/本地依赖jar包bug/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/21/本地依赖jar包bug/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
-        
-        
-        
       
 
       
-    
+        
+          <p>新入职工作还算轻松，接手了个做数据同步的工作，就是我们原本的表进行分库分表拆分后，运营后台使用查询的时候就会异常的麻烦，所以做了个消息异步把拆分后的表再同步到大表里方便查询。主要是数据一致性问题，在多处地方做double check来保证数据一致，再配合监控异常日志记录并分类处理来保证最终数据一致性。<br>然后工作之余撸了个处女开源项目，一个简单的<a href="https://github.com/lousama/free_generator">代码生成器</a>，正好适合目前这种CRUD，减少重复作业.</p>
+<p>前戏就这么些，那么接下来聊聊最近遇到的几个bug。</p>
+<h1 id="maven_u76F8_u5173"><a href="#maven_u76F8_u5173" class="headerlink" title="maven相关"></a>maven相关</h1><h2 id="u5173_u952E_u8BCD_uFF1A"><a href="#u5173_u952E_u8BCD_uFF1A" class="headerlink" title="关键词："></a>关键词：</h2><p><code>maven</code>,<code>本地jar依赖</code>,<code>assembly</code>,<code>打包</code>,</p>
+<h2 id="u9519_u8BEF_uFF1A"><a href="#u9519_u8BEF_uFF1A" class="headerlink" title="错误："></a>错误：</h2><p>can not find or load main class<br>找不到或无法加载主类<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/21/本地依赖jar包bug/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -767,109 +864,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/01/20/jdk命令行工具详解-jmap/" itemprop="url">
-                  JVM调优前戏之JDK命令行工具---jmap
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2016-01-20T10:25:15+08:00" content="2016-01-20">
-              2016-01-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; In
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/20/jdk命令行工具详解-jmap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/20/jdk命令行工具详解-jmap/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/20/jdk命令行工具详解-jmap/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/01/20/jdk命令行工具详解-jstack/" itemprop="url">
                   JVM调优前戏之JDK命令行工具---jstack
                 </a>
@@ -973,8 +967,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/01/20/jdk命令行工具详解-jps/" itemprop="url">
-                  JVM调优前戏之JDK命令行工具---jps
+                <a class="post-title-link" href="/2016/01/20/jdk命令行工具详解-jmap/" itemprop="url">
+                  JVM调优前戏之JDK命令行工具---jmap
                 </a>
               
             
@@ -1010,8 +1004,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/20/jdk命令行工具详解-jps/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/20/jdk命令行工具详解-jps/" itemprop="commentsCount"></span>
+                <a href="/2016/01/20/jdk命令行工具详解-jmap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/20/jdk命令行工具详解-jmap/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1033,7 +1027,7 @@
         
           <p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/20/jdk命令行工具详解-jps/#more" rel="contents">
+            <a class="btn" href="/2016/01/20/jdk命令行工具详解-jmap/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1179,8 +1173,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/01/20/jdk命令行工具详解-jinfo/" itemprop="url">
-                  JVM调优前戏之JDK命令行工具---jinfo
+                <a class="post-title-link" href="/2016/01/20/jdk命令行工具详解-jps/" itemprop="url">
+                  JVM调优前戏之JDK命令行工具---jps
                 </a>
               
             
@@ -1216,8 +1210,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/20/jdk命令行工具详解-jinfo/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/20/jdk命令行工具详解-jinfo/" itemprop="commentsCount"></span>
+                <a href="/2016/01/20/jdk命令行工具详解-jps/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/20/jdk命令行工具详解-jps/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1239,7 +1233,7 @@
         
           <p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/20/jdk命令行工具详解-jinfo/#more" rel="contents">
+            <a class="btn" href="/2016/01/20/jdk命令行工具详解-jps/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1266,7 +1260,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1307,21 +1301,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">categories</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
@@ -1398,11 +1392,11 @@
 </div>
 
 <!--<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+  Desenvolvido com amor com <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  主題 -
+  Tema -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
