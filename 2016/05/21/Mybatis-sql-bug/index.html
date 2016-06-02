@@ -64,7 +64,7 @@ mybatis算是互联网公司和传统企业都非常普遍使用的一款ORM
 之所以想重开一篇是写的时候发现想说的有点多，其实同一个报错可能引起的原因有很多，单列出error log然后报解决方法并不能很清晰的认识问题，而且我也希望在记录的时候不止是解决某个bug本身，而是把这个过程前因后果甚至收获记录下来，共享加共勉。
 下面过程会涉及一些mybatis源码解读，想看bug">
 <meta property="og:image" content="http://t.cn/R5vGrAL">
-<meta property="og:updated_time" content="2016-05-23T11:49:40.000Z">
+<meta property="og:updated_time" content="2016-06-02T03:03:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最近的几个bug-mybatis">
 <meta name="twitter:description" content="接着上回，这回说说mybatis。
@@ -286,7 +286,7 @@ mybatis算是互联网公司和传统企业都非常普遍使用的一款ORM
 <p>之所以想重开一篇是写的时候发现想说的有点多，其实同一个报错可能引起的原因有很多，单列出error log然后报解决方法并不能很清晰的认识问题，而且我也希望在记录的时候不止是解决某个bug本身，而是把这个过程前因后果甚至收获记录下来，共享加共勉。</p>
 <p>下面过程会涉及一些mybatis源码解读，想看bug描述和解决的直接拉到最后</p>
 <p>好了，言归正传。</p>
-<h1 id="u5173_u952E_u8BCD_uFF1A"><a href="#u5173_u952E_u8BCD_uFF1A" class="headerlink" title="关键词："></a>关键词：</h1><p><code>mybatis</code> <code>sql</code><br><code>There is no getter for property named &#39;xx&#39; in &#39;class java.lang.String</code></p>
+<h1 id="u5173_u952E_u8BCD_uFF1A"><a href="#u5173_u952E_u8BCD_uFF1A" class="headerlink" title="关键词："></a>关键词：</h1><p><code>mybatis</code> <code>sql</code><br><code>There is no getter for property named &#39;xx&#39; in &#39;class java.lang.String</code><br><a id="more"></a></p>
 <h1 id="u524D_u620F"><a href="#u524D_u620F" class="headerlink" title="前戏"></a>前戏</h1><p>前面说过最近在做一个通过MQ异步处理数据表同步的工作，业务应用端发送消息的内容是个json字符串，里面包含一条数据快照和对应操作的表名。<br>我这边就要根据表名找到表名对应的实体类，对应的dao层接口，和要执行的mapper.xml中设置的sql。甚至还有表的主键。阿西巴！</p>
 <p>这些个乱七八糟的关系最好还是消费者启动的时候就加载到个map里，话说没有什么数据存储是一个map解决不了的，如果有，那就两个map!</p>
 <h2 id="u901A_u8FC7_u8868_u540D_u627E_u4E3B_u952E"><a href="#u901A_u8FC7_u8868_u540D_u627E_u4E3B_u952E" class="headerlink" title="通过表名找主键"></a>通过表名找主键</h2><p>其实表名对主键的关系还算好找，而且手段也有很多，先说下通过sql怎么找吧。</p>
