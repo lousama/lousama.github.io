@@ -201,6 +201,11 @@
 
     
     
+      
+      
+
+      
+    
 
     
       
@@ -285,109 +290,6 @@
           <p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/01/20/jdk命令行工具详解-jmap/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/20/jdk命令行工具详解-jstack/" itemprop="url">
-                  JVM调优前戏之JDK命令行工具---jstack
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2016-01-20T10:25:15+08:00" content="2016-01-20">
-              2016-01-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; In
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/20/jdk命令行工具详解-jstack/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/20/jdk命令行工具详解-jstack/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/20/jdk命令行工具详解-jstack/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1251,6 +1153,117 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/08/12/mac-ssh-without-password/" itemprop="url">
+                  mac ssh without password
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-08-12T10:43:16+08:00" content="2015-08-12">
+              2015-08-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/MAC/" itemprop="url" rel="index">
+                    <span itemprop="name">MAC</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/12/mac-ssh-without-password/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/12/mac-ssh-without-password/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近变身苹果狗，terminal直接阔以SSH登陆服务器简直好顶赞。<br>不过复杂变态的密码每次都要输入实在苦恼不已，每次都得从文本里复制进去。<br>后来捣鼓了半天，终于搞定了免密码登陆服务器。<br>其实实质就是本地生成公钥放在服务器，然后通过ssh口令时就会验证公钥来完成登陆。</p>
+<ul>
+<li><h2 id="1-__u672C_u5730_u751F_u6210_u5BC6_u94A5"><a href="#1-__u672C_u5730_u751F_u6210_u5BC6_u94A5" class="headerlink" title="1. 本地生成密钥"></a>1. 本地生成密钥</h2></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+<p>然后就会看到.ssh目录下生成的私钥和公钥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.ssh  </span><br><span class="line">    id_rsa  //私钥 </span><br><span class="line">    id_rsa.pub    //公钥</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h2 id="2-__u914D_u7F6Essh_config"><a href="#2-__u914D_u7F6Essh_config" class="headerlink" title="2. 配置ssh config"></a>2. 配置ssh config</h2>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/08/12/mac-ssh-without-password/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
 
   </section>
 
@@ -1297,7 +1310,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
