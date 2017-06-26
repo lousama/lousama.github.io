@@ -1,0 +1,774 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,jvm," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM调优前戏之JDK命令行工具---jmap">
+<meta property="og:url" content="http://lousama.com/2016/01/20/jdk命令行工具详解-jmap/index.html">
+<meta property="og:site_name" content="Lousama">
+<meta property="og:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
+<meta property="og:updated_time" content="2016-06-07T08:14:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM调优前戏之JDK命令行工具---jmap">
+<meta name="twitter:description" content="在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> JVM调优前戏之JDK命令行工具---jmap | Lousama </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72383275-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lousama</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">lousama</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JVM调优前戏之JDK命令行工具---jmap
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-01-20T10:25:15+08:00" content="2016-01-20">
+              2016-01-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/20/jdk命令行工具详解-jmap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/20/jdk命令行工具详解-jmap/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p><strong> 在JDK的命令行中，一般开发人员最耳熟能详的肯定就是java,javac,javap等常用命令，不过在jdk/bin下还有许多其他的命令行工具，它们被用来监测JVM运行时的状态，下面我们来详细解读一下几个常用的工具以及如何使用。</strong></p>
+<a id="more"></a>
+<hr>
+<h1 id="jmap"><a href="#jmap" class="headerlink" title="jmap"></a><strong> jmap </strong></h1><p>jmap(JVM Memory Map)命令用于生成heap dump文件，如果不使用这个命令，还阔以使用-XX:+HeapDumpOnOutOfMemoryError参数来让虚拟机出现OOM的时候·自动生成dump文件。<br>jmap不仅能生成dump文件，还阔以查询finalize执行队列、Java堆和永久代的详细信息，如当前使用率、当前使用的是哪种收集器等。</p>
+<h2 id="u547D_u4EE4_u683C_u5F0F"><a href="#u547D_u4EE4_u683C_u5F0F" class="headerlink" title="命令格式"></a><strong> 命令格式 </strong></h2><pre><code>jmap [option] LVMID
+</code></pre><h2 id="option_u53C2_u6570"><a href="#option_u53C2_u6570" class="headerlink" title="option参数"></a><strong> option参数 </strong></h2><blockquote>
+<ul>
+<li><strong> -dump </strong> :   生成堆转储快照</li>
+<li><strong> -finalizerinfo </strong> :  显示在F-Queue队列等待Finalizer线程执行finalizer方法的对象   </li>
+<li><strong> -heap </strong> :   显示Java堆详细信息</li>
+<li><strong> -histo </strong> :   显示堆中对象的统计信息</li>
+<li><strong> -clstats </strong> :   显示元空间内存状态,ps:该口令是JDK8开始使用,之前是-permstat</li>
+<li><strong> -F </strong> :   当-dump没有响应时，强制生成dump快照</li>
+</ul>
+</blockquote>
+<h2 id="u793A_u4F8B"><a href="#u793A_u4F8B" class="headerlink" title="示例"></a><strong> 示例 </strong></h2><h3 id="dump"><a href="#dump" class="headerlink" title="-dump"></a><strong> -dump </strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ jmap -dump:live,format=b,file=dump.hprof <span class="number">45995</span></span><br><span class="line">Dumping heap to /Users/apple/dump.hprof ...</span><br><span class="line">Heap dump file created</span><br></pre></td></tr></table></figure>
+<p>live表示只dump出当前存活的对象，dump.hprof这个后缀是为了后续可以直接用MAT(Memory Anlysis Tool)打开。</p>
+<h3 id="finalizerinfo"><a href="#finalizerinfo" class="headerlink" title="-finalizerinfo"></a><strong> -finalizerinfo </strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ jmap -finalizerinfo <span class="number">45995</span></span><br><span class="line">Attaching to process ID <span class="number">45995</span>, please wait....</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is <span class="number">25.45</span>-b02</span><br><span class="line">Number of objects pending <span class="keyword">for</span> finalization:<span class="number">0</span>.</span><br></pre></td></tr></table></figure>
+<p>可以看到当前F-QUEUE队列中并没有等待Finalizer线程执行finalizer方法的对象。</p>
+<h3 id="heap"><a href="#heap" class="headerlink" title="-heap"></a><strong> -heap </strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">$ jmap -heap <span class="number">45995</span></span><br><span class="line">ttaching to process ID <span class="number">45995</span>, please wait...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is <span class="number">25.45</span>-b02</span><br><span class="line"></span><br><span class="line">using thread-local object allocation.</span><br><span class="line">Parallel GC with <span class="number">8</span> thread(s)</span><br><span class="line"></span><br><span class="line">Heap Configuration:</span><br><span class="line">   M<span class="keyword">in</span>HeapFreeRatio         = <span class="number">0</span></span><br><span class="line">   MaxHeapFreeRatio         = <span class="number">100</span></span><br><span class="line">   MaxHeapSize              = <span class="number">4294967296</span> (<span class="number">4096.0</span>MB)</span><br><span class="line">   NewSize                  = <span class="number">89128960</span> (<span class="number">85.0</span>MB)</span><br><span class="line">   MaxNewSize               = <span class="number">1431306240</span> (<span class="number">1365.0</span>MB)</span><br><span class="line">   OldSize                  = <span class="number">179306496</span> (<span class="number">171.0</span>MB)</span><br><span class="line">   NewRatio                 = <span class="number">2</span></span><br><span class="line">   SurvivorRatio            = <span class="number">8</span></span><br><span class="line">   MetaspaceSize            = <span class="number">21807104</span> (<span class="number">20.796875</span>MB)</span><br><span class="line">   CompressedClassSpaceSize = <span class="number">1073741824</span> (<span class="number">1024.0</span>MB)</span><br><span class="line">   MaxMetaspaceSize         = <span class="number">17592186044415</span> MB</span><br><span class="line">   G1HeapRegionSize         = <span class="number">0</span> (<span class="number">0.0</span>MB)</span><br><span class="line"></span><br><span class="line">Heap Usage:</span><br><span class="line">PS Young Generation</span><br><span class="line">Eden Space:</span><br><span class="line">   capacity = <span class="number">527433728</span> (<span class="number">503.0</span>MB)</span><br><span class="line">   used     = <span class="number">15639632</span> (<span class="number">14.915115356445312</span>MB)</span><br><span class="line">   free     = <span class="number">511794096</span> (<span class="number">488.0848846435547</span>MB)</span><br><span class="line">   <span class="number">2.9652316812018515</span>% used</span><br><span class="line">From Space:</span><br><span class="line">   capacity = <span class="number">57147392</span> (<span class="number">54.5</span>MB)</span><br><span class="line">   used     = <span class="number">0</span> (<span class="number">0.0</span>MB)</span><br><span class="line">   free     = <span class="number">57147392</span> (<span class="number">54.5</span>MB)</span><br><span class="line">   <span class="number">0.0</span>% used</span><br><span class="line">To Space:</span><br><span class="line">   capacity = <span class="number">56623104</span> (<span class="number">54.0</span>MB)</span><br><span class="line">   used     = <span class="number">0</span> (<span class="number">0.0</span>MB)</span><br><span class="line">   free     = <span class="number">56623104</span> (<span class="number">54.0</span>MB)</span><br><span class="line">   <span class="number">0.0</span>% used</span><br><span class="line">PS Old Generation</span><br><span class="line">   capacity = <span class="number">153092096</span> (<span class="number">146.0</span>MB)</span><br><span class="line">   used     = <span class="number">36103888</span> (<span class="number">34.43135070800781</span>MB)</span><br><span class="line">   free     = <span class="number">116988208</span> (<span class="number">111.56864929199219</span>MB)</span><br><span class="line">   <span class="number">23.583116923293023</span>% used</span><br></pre></td></tr></table></figure>
+<p>可以很清楚的看到Java堆中各个区域目前的情况。</p>
+<h2 id="u9AD8_u80FDtips"><a href="#u9AD8_u80FDtips" class="headerlink" title="高能tips"></a><strong> 高能tips </strong></h2><p>   jmap –histo:live LVMID<br><strong> 这个命令可以显示出当前存活的对象信息，不过加live关键字会强制做1次FULL GC，如果系统有watch dog的存在很可能导致服务器重启。</strong></p>
+<p>   jmap -heap<br><strong> 这个命令在CMS下会有几率导致进程traced(中断)，所以强烈建议不要在生产环境使用这个命令，如果想要查看堆使用情况可以用jstat。</strong></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/jvm/" rel="tag">#jvm</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/20/jdk命令行工具详解-jps/" rel="next" title="JVM调优前戏之JDK命令行工具---jps">
+                <i class="fa fa-chevron-left"></i> JVM调优前戏之JDK命令行工具---jps
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/20/jdk命令行工具详解-jstat/" rel="prev" title="JVM调优前戏之JDK命令行工具---jstat">
+                JVM调优前戏之JDK命令行工具---jstat <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/20/jdk命令行工具详解-jmap/"
+           data-title="JVM调优前戏之JDK命令行工具---jmap" data-url="http://lousama.com/2016/01/20/jdk命令行工具详解-jmap/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="Lousama" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Lousama</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">道狭草木长，夕露沾我衣</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lousama" target="_blank">
+                  
+                    <i class="fa fa-github"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lousama" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://aquariuslt.com/" target="_blank">instigates king A</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.2baxb.me" target="_blank">axb</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/69e7d01b513e" target="_blank">13c mid-out Android</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jmap"><span class="nav-number">1.</span> <span class="nav-text"> jmap </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u547D_u4EE4_u683C_u5F0F"><span class="nav-number">1.1.</span> <span class="nav-text"> 命令格式 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#option_u53C2_u6570"><span class="nav-number">1.2.</span> <span class="nav-text"> option参数 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u793A_u4F8B"><span class="nav-number">1.3.</span> <span class="nav-text"> 示例 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dump"><span class="nav-number">1.3.1.</span> <span class="nav-text"> -dump </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finalizerinfo"><span class="nav-number">1.3.2.</span> <span class="nav-text"> -finalizerinfo </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#heap"><span class="nav-number">1.3.3.</span> <span class="nav-text"> -heap </span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u9AD8_u80FDtips"><span class="nav-number">1.4.</span> <span class="nav-text"> 高能tips </span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lousama</span>
+</div>
+
+<!--<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>-->
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lousama"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+     
+  	  <script type="text/javascript">
+  		var duoshuo_user_ID = lousama
+      var duoshuo_admin_nickname=""
+  	  </script>
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
